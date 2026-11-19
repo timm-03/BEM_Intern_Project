@@ -1,4 +1,4 @@
-# UR TASK
+# UR TASK - By Tim
 
 Aplikasi web manajemen proyek dan tugas harian yang minimalis, cepat, dan responsif. Dirancang dengan pendekatan *offline-first* di mana seluruh data disimpan langsung di peramban pengguna tanpa bergantung pada server backend eksternal.
 
