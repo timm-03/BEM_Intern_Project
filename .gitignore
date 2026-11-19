@@ -1,0 +1,30 @@
+# Dependency directories
+node_modules/
+
+# Operating System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+
+# AI / Agent & Local configs
+.antigravity/
+.gemini/
+.agent/
+.cursor/
+
+# Temporary files & logs
+*.tmp
+*.log

@@ -1,0 +1,608 @@
+/* ============================================================
+   Normalisasi Tampilan & Reset Anti-Overflow Lintas Browser
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  max-width: 100%;
+}
+
+/* Mencegah elemen flex/grid meluap dari batas container */
+.min-w-0-children > * {
+  min-width: 0;
+}
+
+/* Utilitas sembunyikan scrollbar */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ============================================================
+   Variabel Desain Tema (Design Tokens)
+   ============================================================ */
+
+/* ── Mode Terang (Default) ── */
+:root {
+  /* Latar belakang & permukaan */
+  --color-background:                  #fdf9f3;
+  --color-surface:                     #fdf9f3;
+  --color-surface-container-lowest:    #ffffff;
+  --color-surface-container-low:       #f7f3ee;
+  --color-surface-container:           #f1ede8;
+  --color-surface-container-high:      #ece7e2;
+  --color-surface-container-highest:   #e6e2dd;
+  --color-surface-dim:                 #ddd9d4;
+  --color-surface-bright:              #fdf9f3;
+
+  /* Teks */
+  --color-on-surface:                  #1c1c19;
+  --color-on-surface-variant:          #444748;
+
+  /* Warna Utama (Primary) */
+  --color-primary:                     #040505;
+  --color-on-primary:                  #ffffff;
+  --color-primary-container:           #1e1e1e;
+  --color-on-primary-container:        #878585;
+
+  /* Warna Sekunder */
+  --color-secondary:                   #6c5b4d;
+  --color-on-secondary:                #ffffff;
+  --color-secondary-container:         #f2dcca;
+  --color-on-secondary-container:      #706051;
+  --color-secondary-fixed:             #f5decd;
+  --color-secondary-fixed-dim:         #d8c3b2;
+  --color-on-secondary-fixed:          #25190f;
+
+  /* Warna Tersier */
+  --color-tertiary:                    #070502;
+  --color-on-tertiary:                 #ffffff;
+  --color-tertiary-container:          #211e18;
+  --color-on-tertiary-container:       #8c857c;
+
+  /* Warna Peringatan / Error */
+  --color-error:                       #ba1a1a;
+  --color-on-error:                    #ffffff;
+  --color-error-container:             #ffdad6;
+  --color-on-error-container:          #93000a;
+
+  /* Border & Garis */
+  --color-outline:                     #747878;
+  --color-outline-variant:             #c4c7c7;
+
+  /* Warna Inverse */
+  --color-inverse-surface:             #31302d;
+  --color-inverse-on-surface:          #f4f0eb;
+
+  /* Bayangan */
+  --color-shadow-warm:                 rgba(54, 46, 38, 0.08);
+  --color-shadow-warm-md:              rgba(54, 46, 38, 0.12);
+
+  /* Transisi */
+  --transition-theme:                  background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+
+  /* Skema warna browser bawaan */
+  color-scheme: light;
+}
+
+/* ── Mode Gelap (Dark Mode) ── */
+[data-theme="dark"],
+html.dark {
+  color-scheme: dark;
+
+  /* Latar belakang & permukaan gelap */
+  --color-background:                  #0e0f12;
+  --color-surface:                     #0e0f12;
+  --color-surface-container-lowest:    #16171d;
+  --color-surface-container-low:       #16171d;
+  --color-surface-container:           #1f2029;
+  --color-surface-container-high:      #282932;
+  --color-surface-container-highest:   #383a45;
+  --color-surface-dim:                 #0e0f12;
+  --color-surface-bright:              #383a45;
+
+  /* Teks */
+  --color-on-surface:                  #f4efe6;
+  --color-on-surface-variant:          #9e9a92;
+  --color-on-background:               #f4efe6;
+
+  /* Warna Utama */
+  --color-primary:                     #f4efe6;
+  --color-on-primary:                  #0e0f12;
+  --color-primary-container:           #1f2029;
+  --color-on-primary-container:        #f4efe6;
+
+  /* Warna Sekunder */
+  --color-secondary:                   #c8a97e;
+  --color-on-secondary:                #0e0f12;
+  --color-secondary-container:         #282932;
+  --color-on-secondary-container:      #c8a97e;
+  --color-secondary-fixed:             #1f2029;
+  --color-secondary-fixed-dim:         #16171d;
+  --color-on-secondary-fixed:          #c8a97e;
+
+  /* Warna Tersier */
+  --color-tertiary:                    #c8a97e;
+  --color-on-tertiary:                 #0e0f12;
+  --color-tertiary-container:          #282932;
+  --color-on-tertiary-container:       #c8a97e;
+
+  /* Warna Peringatan / Error */
+  --color-error:                       #ffb4ab;
+  --color-on-error:                    #690005;
+  --color-error-container:             #93000a;
+  --color-on-error-container:          #ffdad6;
+
+  /* Border & Garis */
+  --color-outline:                     #383a45;
+  --color-outline-variant:             #2a2c36;
+
+  /* Warna Inverse */
+  --color-inverse-surface:             #f4efe6;
+  --color-inverse-on-surface:          #0e0f12;
+
+  /* Bayangan */
+  --color-shadow-warm:                 rgba(0, 0, 0, 0.65);
+  --color-shadow-warm-md:              rgba(0, 0, 0, 0.85);
+}
+
+/* ============================================================
+   Navigasi Bawah Layar Mobile
+   ============================================================ */
+.mobile-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 64px;
+  background: var(--color-surface-container-low);
+  border-top: 1px solid var(--color-outline-variant);
+  box-shadow: 0 -2px 8px var(--color-shadow-warm);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  transition: var(--transition-theme);
+}
+
+.mobile-nav__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  flex: 1;
+  height: 100%;
+  color: var(--color-on-surface-variant);
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  transition: color 0.2s ease;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.mobile-nav__item svg,
+.mobile-nav__item .nav-icon {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.2s ease;
+}
+
+.mobile-nav__item.active,
+.mobile-nav__item[aria-current="page"] {
+  color: var(--color-primary);
+}
+
+.mobile-nav__item.active svg,
+.mobile-nav__item[aria-current="page"] svg {
+  transform: scale(1.1);
+}
+
+.mobile-nav__item:hover {
+  color: var(--color-on-surface);
+}
+
+.mobile-nav__label {
+  font-size: 10px;
+  line-height: 1;
+}
+
+/* Indikator aktif navigasi */
+.mobile-nav__item.active::after {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  margin-top: 2px;
+}
+
+/* Navigasi mengambang (floating) */
+.floating-nav {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  background: var(--color-surface-container-highest);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: 999px;
+  box-shadow: 0 4px 16px var(--color-shadow-warm-md);
+  transition: var(--transition-theme), box-shadow 0.2s ease;
+}
+
+.floating-nav__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  color: var(--color-on-surface-variant);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  transition: background 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  white-space: nowrap;
+}
+
+.floating-nav__item:hover {
+  background: var(--color-surface-container-high);
+  color: var(--color-on-surface);
+}
+
+.floating-nav__item.active {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.floating-nav__item svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ============================================================
+   Efek Sorotan Drag & Drop Papan Kanban
+   ============================================================ */
+.kanban-col.drag-over {
+  outline: 2px dashed var(--color-secondary);
+  background: rgba(108, 91, 77, 0.08);
+}
+
+[data-theme="dark"] .kanban-col.drag-over {
+  background: rgba(203, 198, 189, 0.08);
+}
+
+/* ============================================================
+   Animasi Notifikasi Toast
+   ============================================================ */
+@keyframes slideInToast {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToast {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+}
+
+.toast {
+  animation: slideInToast 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.toast.toast--hiding {
+  animation: slideOutToast 0.25s ease-in forwards;
+}
+
+/* ============================================================
+   Latar Belakang Modal Dialog (Backdrop)
+   ============================================================ */
+dialog::backdrop {
+  background: rgba(4, 5, 5, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* ============================================================
+   Utilitas Sembunyikan Scrollbar Lintas Browser
+   ============================================================ */
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* Invert gambar/ikon pada mode gelap */
+[data-theme="dark"] .dark-invert {
+  filter: invert(1);
+}
+
+/* Interaksi kartu tugas yang dapat digeser (draggable) */
+.task-card[draggable="true"]:active {
+  opacity: 0.6;
+  cursor: grabbing;
+}
+
+.task-card[draggable="true"] {
+  cursor: grab;
+}
+
+/* ============================================================
+   Pengaturan Font Ikon Material Symbols
+   ============================================================ */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined' !important;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1;
+  display: inline-block;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga';
+}
+
+/* ============================================================
+   Override Tampilan Komponen Pada Mode Gelap
+   ============================================================ */
+[data-theme="dark"] body,
+html.dark body {
+  background-color: #0e0f12 !important;
+  color: #f4efe6 !important;
+}
+
+/* Navbar atas & floating dock */
+[data-theme="dark"] aside,
+html.dark aside,
+[data-theme="dark"] header > div,
+html.dark header > div {
+  background-color: rgba(22, 23, 29, 0.88) !important;
+  border-color: #2a2c36 !important;
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Warna latar permukaan */
+[data-theme="dark"] .bg-background,
+html.dark .bg-background,
+[data-theme="dark"] .bg-surface,
+html.dark .bg-surface {
+  background-color: #0e0f12 !important;
+}
+
+[data-theme="dark"] .bg-surface-container-lowest,
+html.dark .bg-surface-container-lowest,
+[data-theme="dark"] .bg-surface-container-low,
+html.dark .bg-surface-container-low {
+  background-color: #16171d !important;
+}
+
+[data-theme="dark"] .bg-surface-container,
+html.dark .bg-surface-container {
+  background-color: #1f2029 !important;
+}
+
+[data-theme="dark"] .bg-surface-container-high,
+html.dark .bg-surface-container-high {
+  background-color: #282932 !important;
+}
+
+[data-theme="dark"] .bg-surface-container-highest,
+html.dark .bg-surface-container-highest {
+  background-color: #383a45 !important;
+}
+
+/* Warna garis / border */
+[data-theme="dark"] .border-outline-variant\/15,
+[data-theme="dark"] .border-outline-variant\/20,
+[data-theme="dark"] .border-outline-variant\/25,
+[data-theme="dark"] .border-outline-variant\/30,
+[data-theme="dark"] .border-surface-container,
+html.dark .border-outline-variant\/15,
+html.dark .border-outline-variant\/20,
+html.dark .border-outline-variant\/25,
+html.dark .border-outline-variant\/30,
+html.dark .border-surface-container {
+  border-color: #2a2c36 !important;
+}
+
+/* Warna teks */
+[data-theme="dark"] .text-primary,
+html.dark .text-primary,
+[data-theme="dark"] .text-on-surface,
+html.dark .text-on-surface,
+[data-theme="dark"] .text-on-background,
+html.dark .text-on-background {
+  color: #f4efe6 !important;
+}
+
+[data-theme="dark"] .text-on-surface-variant,
+html.dark .text-on-surface-variant {
+  color: #9e9a92 !important;
+}
+
+[data-theme="dark"] .text-secondary,
+html.dark .text-secondary {
+  color: #c8a97e !important;
+}
+
+/* Tombol utama & pill aktif */
+[data-theme="dark"] .bg-primary,
+html.dark .bg-primary {
+  background-color: #f4efe6 !important;
+  color: #0e0f12 !important;
+}
+
+[data-theme="dark"] .bg-primary *,
+html.dark .bg-primary * {
+  color: #0e0f12 !important;
+}
+
+[data-theme="dark"] .text-on-primary,
+html.dark .text-on-primary {
+  color: #0e0f12 !important;
+}
+
+[data-theme="dark"] .bg-primary-container,
+html.dark .bg-primary-container {
+  background-color: #1f2029 !important;
+  color: #f4efe6 !important;
+  border-color: #2a2c36 !important;
+}
+
+[data-theme="dark"] .text-on-primary-container,
+html.dark .text-on-primary-container {
+  color: #d9d4cb !important;
+}
+
+/* Badge & elemen sekunder */
+[data-theme="dark"] .bg-secondary-fixed,
+[data-theme="dark"] .bg-secondary-fixed\/30,
+[data-theme="dark"] .bg-secondary-fixed\/40,
+[data-theme="dark"] .bg-secondary-fixed\/50,
+[data-theme="dark"] .bg-secondary-container,
+html.dark .bg-secondary-fixed,
+html.dark .bg-secondary-fixed\/30,
+html.dark .bg-secondary-fixed\/40,
+html.dark .bg-secondary-fixed\/50,
+html.dark .bg-secondary-container {
+  background-color: #282932 !important;
+  color: #c8a97e !important;
+}
+
+[data-theme="dark"] .text-on-secondary-fixed,
+html.dark .text-on-secondary-fixed {
+  color: #c8a97e !important;
+}
+
+/* Input form & dialog modal */
+[data-theme="dark"] input,
+[data-theme="dark"] select,
+[data-theme="dark"] textarea,
+html.dark input,
+html.dark select,
+html.dark textarea {
+  background-color: #16171d !important;
+  border-color: #2a2c36 !important;
+  color: #f4efe6 !important;
+}
+
+[data-theme="dark"] input:focus,
+[data-theme="dark"] select:focus,
+[data-theme="dark"] textarea:focus,
+html.dark input:focus,
+html.dark select:focus,
+html.dark textarea:focus {
+  background-color: #1f2029 !important;
+  border-color: #c8a97e !important;
+  box-shadow: 0 0 0 1px #c8a97e !important;
+}
+
+[data-theme="dark"] dialog > div,
+html.dark dialog > div {
+  background-color: #16171d !important;
+  border-color: #2a2c36 !important;
+  color: #f4efe6 !important;
+  box-shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.85) !important;
+}
+
+[data-theme="dark"] dialog::backdrop,
+html.dark dialog::backdrop {
+  background: rgba(14, 15, 18, 0.85) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+/* Efek glow redup di mode gelap */
+[data-theme="dark"] .glow-blob,
+html.dark .glow-blob {
+  opacity: 0.12 !important;
+}
+
+/* Navigasi mobile bawah */
+[data-theme="dark"] nav.mobile-nav,
+[data-theme="dark"] nav.fixed.bottom-0,
+html.dark nav.mobile-nav,
+html.dark nav.fixed.bottom-0 {
+  background-color: rgba(22, 23, 29, 0.95) !important;
+  border-top-color: #2a2c36 !important;
+}
+
+/* ── Penyesuaian input tanggal ── */
+[data-theme="dark"] input[type="date"],
+html.dark input[type="date"] {
+  color-scheme: dark;
+}
+[data-theme="dark"] input[type="date"]::-webkit-calendar-picker-indicator,
+html.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(0.85);
+  cursor: pointer;
+}
+
+/* ── Penyesuaian panah dropdown select ── */
+select {
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23747878' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 2.5rem !important;
+}
+[data-theme="dark"] select,
+html.dark select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%239e9a92' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+}
+
+/* ── Modal dialog ── */
+dialog {
+  border: none;
+  outline: none;
+}
+
+/* ── Aturan scroll halaman utama ── */
+html {
+  scroll-behavior: smooth !important;
+  overflow-y: auto !important;
+  overflow-x: clip !important;
+  height: auto !important;
+}
+
+body {
+  overflow-y: visible !important;
+  overflow-x: clip !important;
+  min-height: 100vh !important;
+  height: auto !important;
+  position: relative !important;
+}

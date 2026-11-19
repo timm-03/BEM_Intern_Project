@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Masuk ke Akun — UR TASK</title>
+
+  <!-- Inisialisasi tema sebelum render -->
+  <script>
+    (function(){
+      var t = localStorage.getItem('urtask_theme');
+      if (t === 'dark' || (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: ["class", '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          colors: {
+            "surface-container-high": "#ece7e2",
+            "surface-dim": "#ddd9d4",
+            "outline": "#747878",
+            "secondary": "#6c5b4d",
+            "secondary-container": "#f2dcca",
+            "on-primary": "#ffffff",
+            "on-secondary-container": "#706051",
+            "on-secondary-fixed-variant": "#534437",
+            "surface-bright": "#fdf9f3",
+            "inverse-surface": "#31302d",
+            "on-primary-fixed-variant": "#474746",
+            "tertiary-container": "#211e18",
+            "on-primary-container": "#878585",
+            "on-tertiary-fixed-variant": "#4b463f",
+            "primary": "#040505",
+            "secondary-fixed": "#f5decd",
+            "surface-tint": "#5f5e5e",
+            "surface-variant": "#e6e2dd",
+            "error": "#ba1a1a",
+            "surface-container-low": "#f7f3ee",
+            "tertiary-fixed": "#eae1d7",
+            "surface-container-lowest": "#ffffff",
+            "tertiary": "#070502",
+            "background": "#fdf9f3",
+            "tertiary-fixed-dim": "#cdc5bb",
+            "error-container": "#ffdad6",
+            "inverse-primary": "#c8c6c5",
+            "primary-fixed": "#e5e2e1",
+            "surface": "#fdf9f3",
+            "inverse-on-surface": "#f4f0eb",
+            "on-background": "#1c1c19",
+            "primary-fixed-dim": "#c8c6c5",
+            "surface-container-highest": "#e6e2dd",
+            "on-surface-variant": "#444748",
+            "on-secondary": "#ffffff",
+            "on-error": "#ffffff",
+            "on-error-container": "#93000a",
+            "secondary-fixed-dim": "#d8c3b2",
+            "on-tertiary-container": "#8c857c",
+            "outline-variant": "#c4c7c7",
+            "on-secondary-fixed": "#25190f",
+            "surface-container": "#f1ede8",
+            "on-tertiary-fixed": "#1f1b15",
+            "on-surface": "#1c1c19",
+            "on-primary-fixed": "#1b1b1c",
+            "on-tertiary": "#ffffff",
+            "primary-container": "#1e1e1e"
+          },
+          borderRadius: {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "gutter-mobile": "0.75rem",
+            "space-xl": "3rem",
+            "margin-mobile": "1.25rem",
+            "space-sm": "0.75rem",
+            "space-lg": "2rem",
+            "margin": "2.5rem",
+            "space-md": "1.25rem",
+            "space-xs": "0.375rem",
+            "gutter": "1.5rem"
+          },
+          fontFamily: {
+            "headline-lg-mobile": ["Playfair Display"],
+            "headline-sm": ["Playfair Display"],
+            "headline-lg": ["Playfair Display"],
+            "label-md": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "display-lg": ["Playfair Display"],
+            "headline-md": ["Playfair Display"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "label-lg": ["Plus Jakarta Sans"],
+            "label-sm": ["Plus Jakarta Sans"],
+            "display-lg-mobile": ["Playfair Display"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="css/theme.css">
+
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+    }
+
+    /* Ambient glows */
+    .glow-blob {
+      position: fixed;
+      border-radius: 9999px;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
+    .glow-blob-1 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, #f2dcca 0%, transparent 70%);
+      top: -100px; left: -80px;
+    }
+    .glow-blob-2 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, #eae1d7 0%, transparent 70%);
+      bottom: 60px; right: -60px;
+    }
+    [data-theme="dark"] .glow-blob-1 {
+      background: radial-gradient(circle, rgba(73,71,64,0.7) 0%, transparent 70%);
+    }
+    [data-theme="dark"] .glow-blob-2 {
+      background: radial-gradient(circle, rgba(64,45,12,0.5) 0%, transparent 70%);
+    }
+
+    /* Tab switcher */
+    .tab-switcher {
+      display: flex;
+      background: var(--color-surface-container, #f1ede8);
+      border-radius: 9999px;
+      padding: 4px;
+      gap: 2px;
+      margin-bottom: 1.75rem;
+    }
+    [data-theme="dark"] .tab-switcher, html.dark .tab-switcher {
+      background: #1f2029;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 9999px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-align: center;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--color-on-surface-variant, #444748);
+      transition: background 0.2s, color 0.2s;
+    }
+    [data-theme="dark"] .tab-btn, html.dark .tab-btn {
+      color: #9e9a92;
+    }
+    .tab-btn.active {
+      background: var(--color-primary, #040505);
+      color: var(--color-on-primary, #ffffff);
+    }
+    [data-theme="dark"] .tab-btn.active, html.dark .tab-btn.active {
+      background: #f4efe6;
+      color: #0e0f12;
+    }
+
+    /* Form fields */
+    .form-group { margin-bottom: 1.1rem; }
+    .form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-on-surface-variant, #444748);
+      margin-bottom: 6px;
+    }
+    [data-theme="dark"] .form-label, html.dark .form-label {
+      color: #9e9a92;
+    }
+    .form-input-wrap { position: relative; }
+    .form-input {
+      width: 100%;
+      padding: 11px 14px;
+      background: var(--color-surface-container-low, #f7f3ee);
+      border: 1.5px solid var(--color-outline-variant, #c4c7c7);
+      border-radius: 0.75rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      color: var(--color-on-surface, #1c1c19);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    [data-theme="dark"] .form-input, html.dark .form-input {
+      background: #1f2029;
+      border-color: #2a2c36;
+      color: #f4efe6;
+    }
+    [data-theme="dark"] .form-input::placeholder { color: #9e9a92; }
+    .form-input:focus {
+      border-color: var(--color-secondary, #6c5b4d);
+      box-shadow: 0 0 0 3px rgba(108,91,77,0.12);
+    }
+    .form-input.has-toggle { padding-right: 44px; }
+    .form-input.error {
+      border-color: var(--color-error, #ba1a1a);
+      box-shadow: 0 0 0 3px rgba(186,26,26,0.1);
+    }
+    .form-error {
+      display: none;
+      font-size: 11px;
+      color: var(--color-error, #ba1a1a);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+    .form-error.visible { display: block; }
+
+    /* Password toggle */
+    .pw-toggle {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-on-surface-variant, #444748);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px;
+      border-radius: 6px;
+    }
+    [data-theme="dark"] .pw-toggle, html.dark .pw-toggle {
+      color: #9e9a92;
+    }
+    .pw-toggle .material-symbols-outlined { font-size: 18px; }
+
+    /* Submit button */
+    .btn-submit {
+      width: 100%;
+      padding: 13px;
+      background: var(--color-primary, #040505);
+      color: var(--color-on-primary, #ffffff);
+      border: none;
+      border-radius: 9999px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      margin-top: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-submit:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    [data-theme="dark"] .btn-submit, html.dark .btn-submit {
+      background: #f4efe6;
+      color: #0e0f12;
+    }
+
+    /* Privacy pill */
+    .privacy-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--color-secondary-container, #f2dcca);
+      border-radius: 9999px;
+      padding: 5px 12px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-secondary, #6c5b4d);
+    }
+    [data-theme="dark"] .privacy-pill, html.dark .privacy-pill {
+      background: #1f2029;
+      color: #c8a97e;
+    }
+    .privacy-pill .material-symbols-outlined { font-size: 13px; }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--color-inverse-surface, #31302d);
+      color: var(--color-inverse-on-surface, #f4f0eb);
+      padding: 12px 24px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 500;
+      z-index: 999;
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s;
+      white-space: nowrap;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+    [data-theme="dark"] #toast, html.dark #toast {
+      background: #f4efe6;
+      color: #0e0f12;
+    }
+
+    /* Tab panel */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Spinner */
+    .spinner {
+      display: inline-block;
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+    [data-theme="dark"] .spinner, html.dark .spinner {
+      border-color: rgba(14,15,18,0.3);
+      border-top-color: #0e0f12;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+
+  <!-- Core App Scripts -->
+  <script src="js/theme.js" defer></script>
+  <script src="js/storage.js" defer></script>
+  <script src="js/auth.js" defer></script>
+  <script src="js/ui.js" defer></script>
+</head>
+<body class="bg-background font-body-md text-on-surface antialiased min-h-screen flex flex-col selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+
+  <!-- Efek Latar Belakang -->
+  <div aria-hidden="true" class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+    <div class="glow-blob glow-blob-1"></div>
+    <div class="glow-blob glow-blob-2"></div>
+  </div>
+
+  <!-- Navigasi Atas -->
+  <header class="fixed top-0 left-0 right-0 z-50 w-full px-4 lg:px-6 mt-4 pointer-events-none">
+    <div class="h-16 max-w-lg mx-auto rounded-full bg-surface-container-low/85 dark:bg-[#16171d]/85 backdrop-blur-2xl shadow-[0_16px_36px_-10px_rgba(54,46,38,0.08),0_4px_12px_-2px_rgba(54,46,38,0.04)] border border-outline-variant/20 dark:border-[#2a2c36] px-5 flex items-center justify-between pointer-events-auto transition-all">
+      <!-- Brand -->
+      <a href="index.html" class="flex items-center gap-2 group whitespace-nowrap">
+        <span class="font-headline-sm text-lg md:text-xl tracking-tight text-primary dark:text-[#f4efe6] font-medium whitespace-nowrap">UR TASK</span>
+        <span class="font-label-sm text-[10px] tracking-widest text-secondary dark:text-[#c8a97e] px-2 py-0.5 rounded-full bg-secondary-fixed/50 dark:bg-[#1f2029] font-bold whitespace-nowrap">By Tim</span>
+      </a>
+
+      <!-- Tombol Beranda & Tema -->
+      <div class="flex items-center gap-2">
+        <a href="index.html" class="flex items-center gap-1 font-label-sm text-[11px] font-semibold tracking-[0.08em] uppercase text-on-surface-variant hover:text-on-surface dark:text-[#9e9a92] dark:hover:text-[#f4efe6] transition-colors px-2 py-1">
+          <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+          <span class="hidden sm:inline">Beranda</span>
+        </a>
+        <button class="w-9 h-9 rounded-full flex items-center justify-center bg-surface-container-high/60 hover:bg-surface-container-high dark:bg-[#1f2029] dark:hover:bg-[#282932] text-on-surface dark:text-[#f4efe6] transition-all" data-theme-toggle aria-label="Toggle Mode Gelap/Terang" title="Mode Tampilan">
+          <span class="material-symbols-outlined text-[18px]" id="theme-icon">dark_mode</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Form Autentikasi -->
+  <main class="relative z-10 flex-1 flex flex-col items-center justify-center px-4 pt-28 pb-12">
+
+    <!-- Informasi Privasi -->
+    <div class="mb-6">
+      <span class="privacy-pill">
+        <span class="material-symbols-outlined">lock</span>
+        Data tersimpan lokal · tanpa pihak ketiga
+      </span>
+    </div>
+
+    <!-- Kartu Autentikasi -->
+    <div class="w-full max-w-[440px] rounded-3xl bg-surface-container-lowest dark:bg-[#16171d] border border-outline-variant/20 dark:border-[#2a2c36] shadow-[0_16px_36px_-10px_rgba(54,46,38,0.08)] p-6 sm:p-8 relative z-10">
+
+      <!-- Judul Autentikasi -->
+      <div class="text-center mb-6">
+        <h1 class="font-headline-md text-2xl md:text-3xl font-medium tracking-tight text-primary dark:text-[#f4efe6] mb-1">
+          Selamat datang
+        </h1>
+        <p class="font-body-sm text-[13px] text-on-surface-variant dark:text-[#9e9a92]">
+          Masuk atau buat akun baru untuk lanjut
+        </p>
+      </div>
+
+      <!-- Pilihan Tab (Masuk / Daftar) -->
+      <div class="tab-switcher" role="tablist">
+        <button class="tab-btn active" id="tab-login-btn" role="tab" aria-selected="true" aria-controls="panel-login" onclick="switchTab('login')">
+          Masuk ke Akun
+        </button>
+        <button class="tab-btn" id="tab-register-btn" role="tab" aria-selected="false" aria-controls="panel-register" onclick="switchTab('register')">
+          Buat Akun Baru
+        </button>
+      </div>
+
+      <!-- Panel Masuk -->
+      <div class="tab-panel active" id="panel-login" role="tabpanel">
+        <form id="form-login" novalidate>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label class="form-label" for="login-email">Email</label>
+            <div class="form-input-wrap">
+              <input class="form-input" type="email" id="login-email" name="email"
+                     placeholder="nama@email.com" autocomplete="email" />
+            </div>
+            <span class="form-error" id="login-email-err"></span>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label class="form-label" for="login-password">Password</label>
+            <div class="form-input-wrap">
+              <input class="form-input has-toggle" type="password" id="login-password" name="password"
+                     placeholder="Minimal 6 karakter" autocomplete="current-password" />
+              <button type="button" class="pw-toggle" onclick="togglePw('login-password', 'login-pw-icon')" aria-label="Tampilkan/Sembunyikan password">
+                <span class="material-symbols-outlined" id="login-pw-icon">visibility_off</span>
+              </button>
+            </div>
+            <span class="form-error" id="login-password-err"></span>
+          </div>
+
+          <!-- General error -->
+          <span class="form-error" id="login-general-err" style="margin-bottom:8px;"></span>
+
+          <button type="submit" class="btn-submit" id="btn-login">
+            <span class="material-symbols-outlined" style="font-size:18px;">login</span>
+            <span>Masuk</span>
+          </button>
+
+          <p class="font-body-sm text-center mt-4 text-[12px] text-on-surface-variant dark:text-[#9e9a92]">
+            Belum punya akun?
+            <button type="button" onclick="switchTab('register')" class="bg-transparent border-0 cursor-pointer text-secondary dark:text-[#c8a97e] font-semibold text-[12px] font-body-sm p-0 underline">Daftar sekarang</button>
+          </p>
+        </form>
+      </div>
+
+      <!-- Panel Daftar Akun -->
+      <div class="tab-panel" id="panel-register" role="tabpanel">
+        <form id="form-register" novalidate>
+
+          <!-- Nama Lengkap -->
+          <div class="form-group">
+            <label class="form-label" for="reg-name">Nama Lengkap</label>
+            <div class="form-input-wrap">
+              <input class="form-input" type="text" id="reg-name" name="name"
+                     placeholder="Nama kamu" autocomplete="name" />
+            </div>
+            <span class="form-error" id="reg-name-err"></span>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label class="form-label" for="reg-email">Email</label>
+            <div class="form-input-wrap">
+              <input class="form-input" type="email" id="reg-email" name="email"
+                     placeholder="nama@email.com" autocomplete="email" />
+            </div>
+            <span class="form-error" id="reg-email-err"></span>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label class="form-label" for="reg-password">Password</label>
+            <div class="form-input-wrap">
+              <input class="form-input has-toggle" type="password" id="reg-password" name="password"
+                     placeholder="Minimal 6 karakter" autocomplete="new-password" />
+              <button type="button" class="pw-toggle" onclick="togglePw('reg-password', 'reg-pw-icon')" aria-label="Tampilkan/Sembunyikan password">
+                <span class="material-symbols-outlined" id="reg-pw-icon">visibility_off</span>
+              </button>
+            </div>
+            <span class="form-error" id="reg-password-err"></span>
+          </div>
+
+          <!-- General error -->
+          <span class="form-error" id="reg-general-err" style="margin-bottom:8px;"></span>
+
+          <button type="submit" class="btn-submit" id="btn-register">
+            <span class="material-symbols-outlined" style="font-size:18px;">person_add</span>
+            <span>Buat Akun</span>
+          </button>
+
+          <p class="font-body-sm text-center mt-4 text-[12px] text-on-surface-variant dark:text-[#9e9a92]">
+            Sudah punya akun?
+            <button type="button" onclick="switchTab('login')" class="bg-transparent border-0 cursor-pointer text-secondary dark:text-[#c8a97e] font-semibold text-[12px] font-body-sm p-0 underline">Masuk di sini</button>
+          </p>
+        </form>
+      </div>
+
+    </div><!-- Tutup Kartu Autentikasi -->
+
+    <!-- Keterangan Tambahan -->
+    <p class="font-body-sm text-center mt-5 text-[11px] text-outline dark:text-[#9e9a92] max-w-xs leading-relaxed">
+      Semua data disimpan di <code class="font-mono text-[10px] bg-surface-container dark:bg-[#1f2029] px-1 py-0.5 rounded">localStorage</code> perangkatmu. Tidak ada koneksi ke server eksternal.
+    </p>
+  </main>
+
+  <!-- Notifikasi Toast -->
+  <div id="toast" role="status" aria-live="polite">
+    <span class="material-symbols-outlined" id="toast-icon" style="font-size:18px;">check_circle</span>
+    <span id="toast-msg">Berhasil!</span>
+  </div>
+
+  <!-- Skrip Autentikasi -->
+  <script>
+  (function () {
+
+    // ── Helpers ──────────────────────────────────────────────────────
+    var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function $(id) { return document.getElementById(id); }
+
+    function setError(id, msg) {
+      var el = $(id);
+      if (!el) return;
+      el.textContent = msg;
+      el.classList.toggle('visible', !!msg);
+    }
+
+    function clearErrors(ids) {
+      ids.forEach(function(id) { setError(id, ''); });
+    }
+
+    function markField(inputId, hasErr) {
+      var el = $(inputId);
+      if (el) el.classList.toggle('error', hasErr);
+    }
+
+    // ── Toast ─────────────────────────────────────────────────────────
+    var toastTimer = null;
+    function showToast(msg, type) {
+      var toast = $('toast');
+      var msgEl = $('toast-msg');
+      var iconEl = $('toast-icon');
+      if (!toast || !msgEl) return;
+      msgEl.textContent = msg;
+      if (iconEl) iconEl.textContent = type === 'error' ? 'error' : 'check_circle';
+      toast.classList.add('show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 3200);
+    }
+
+    // ── Tab switcher ──────────────────────────────────────────────────
+    window.switchTab = function (tab) {
+      var panels = { login: $('panel-login'), register: $('panel-register') };
+      var btns   = { login: $('tab-login-btn'), register: $('tab-register-btn') };
+      Object.keys(panels).forEach(function (k) {
+        panels[k].classList.toggle('active', k === tab);
+        btns[k].classList.toggle('active', k === tab);
+        btns[k].setAttribute('aria-selected', k === tab ? 'true' : 'false');
+      });
+      clearErrors(['login-email-err','login-password-err','login-general-err',
+                   'reg-name-err','reg-email-err','reg-password-err','reg-general-err']);
+    };
+
+    // ── Password toggle ───────────────────────────────────────────────
+    window.togglePw = function (inputId, iconId) {
+      var inp = $(inputId);
+      var ico = $(iconId);
+      if (!inp) return;
+      var showing = inp.type === 'text';
+      inp.type = showing ? 'password' : 'text';
+      if (ico) ico.textContent = showing ? 'visibility_off' : 'visibility';
+    };
+
+    // ── Validation helpers ────────────────────────────────────────────
+    function validateLoginForm() {
+      var email    = $('login-email').value.trim();
+      var password = $('login-password').value;
+      var ok = true;
+
+      clearErrors(['login-email-err','login-password-err','login-general-err']);
+      markField('login-email', false);
+      markField('login-password', false);
+
+      if (!email) {
+        setError('login-email-err', 'Email tidak boleh kosong.');
+        markField('login-email', true); ok = false;
+      } else if (!EMAIL_RE.test(email)) {
+        setError('login-email-err', 'Format email tidak valid.');
+        markField('login-email', true); ok = false;
+      }
+
+      if (!password) {
+        setError('login-password-err', 'Password tidak boleh kosong.');
+        markField('login-password', true); ok = false;
+      } else if (password.length < 6) {
+        setError('login-password-err', 'Password minimal 6 karakter.');
+        markField('login-password', true); ok = false;
+      }
+
+      return ok;
+    }
+
+    function validateRegisterForm() {
+      var name     = $('reg-name').value.trim();
+      var email    = $('reg-email').value.trim();
+      var password = $('reg-password').value;
+      var ok = true;
+
+      clearErrors(['reg-name-err','reg-email-err','reg-password-err','reg-general-err']);
+      markField('reg-name', false);
+      markField('reg-email', false);
+      markField('reg-password', false);
+
+      if (!name) {
+        setError('reg-name-err', 'Nama lengkap tidak boleh kosong.');
+        markField('reg-name', true); ok = false;
+      } else if (name.length < 2) {
+        setError('reg-name-err', 'Nama terlalu pendek.');
+        markField('reg-name', true); ok = false;
+      }
+
+      if (!email) {
+        setError('reg-email-err', 'Email tidak boleh kosong.');
+        markField('reg-email', true); ok = false;
+      } else if (!EMAIL_RE.test(email)) {
+        setError('reg-email-err', 'Format email tidak valid.');
+        markField('reg-email', true); ok = false;
+      }
+
+      if (!password) {
+        setError('reg-password-err', 'Password tidak boleh kosong.');
+        markField('reg-password', true); ok = false;
+      } else if (password.length < 6) {
+        setError('reg-password-err', 'Password minimal 6 karakter.');
+        markField('reg-password', true); ok = false;
+      }
+
+      return ok;
+    }
+
+    // ── Redirect after success ────────────────────────────────────────
+    function redirectToDashboard(delayMs) {
+      setTimeout(function () {
+        window.location.replace('dashboard.html');
+      }, delayMs || 1500);
+    }
+
+    // ── LOGIN form submission ─────────────────────────────────────────
+    function handleLogin(e) {
+      e.preventDefault();
+      if (!validateLoginForm()) return;
+
+      var email    = $('login-email').value.trim();
+      var password = $('login-password').value;
+      var btn      = $('btn-login');
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> <span>Memproses...</span>';
+
+      setTimeout(function () {
+        var result;
+        try {
+          if (typeof URAuth !== 'undefined' && URAuth.login) {
+            result = URAuth.login({ email: email, password: password });
+          } else if (typeof URStorage !== 'undefined' && URStorage.loginUser) {
+            result = URStorage.loginUser({ email: email, password: password });
+          } else {
+            result = { success: false, error: 'Sistem autentikasi belum siap. Muat ulang halaman.' };
+          }
+        } catch (ex) {
+          result = { success: false, error: 'Terjadi kesalahan: ' + ex.message };
+        }
+
+        btn.disabled = false;
+        btn.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px;">login</span><span>Masuk</span>';
+
+        if (result && result.success) {
+          showToast('Berhasil masuk! Mengalihkan…', 'success');
+          redirectToDashboard(1000);
+        } else {
+          var msg = (result && result.error) ? result.error : 'Email atau password salah.';
+          setError('login-general-err', msg);
+          markField('login-email', true);
+          markField('login-password', true);
+        }
+      }, 300);
+    }
+
+    // ── REGISTER form submission ──────────────────────────────────────
+    function handleRegister(e) {
+      e.preventDefault();
+      if (!validateRegisterForm()) return;
+
+      var name     = $('reg-name').value.trim();
+      var email    = $('reg-email').value.trim();
+      var password = $('reg-password').value;
+      var btn      = $('btn-register');
+
+      if (typeof URStorage !== 'undefined' && URStorage.findUserByEmail) {
+        var existing = URStorage.findUserByEmail(email);
+        if (existing) {
+          setError('reg-email-err', 'Email ini sudah terdaftar. Silakan masuk.');
+          markField('reg-email', true);
+          return;
+        }
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> <span>Mendaftar...</span>';
+
+      setTimeout(function () {
+        var result;
+        try {
+          if (typeof URAuth !== 'undefined' && URAuth.register) {
+            result = URAuth.register({ name: name, email: email, password: password });
+          } else if (typeof URStorage !== 'undefined' && URStorage.registerUser) {
+            result = URStorage.registerUser({ name: name, email: email, password: password });
+          } else {
+            result = { success: false, error: 'Sistem autentikasi belum siap. Muat ulang halaman.' };
+          }
+        } catch (ex) {
+          result = { success: false, error: 'Terjadi kesalahan: ' + ex.message };
+        }
+
+        btn.disabled = false;
+        btn.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px;">person_add</span><span>Buat Akun</span>';
+
+        if (result && result.success) {
+          showToast('Akun berhasil dibuat! Mengalihkan…', 'success');
+          redirectToDashboard(1000);
+        } else {
+          var msg = (result && result.error) ? result.error : 'Gagal membuat akun.';
+          if (msg.toLowerCase().includes('email') && msg.toLowerCase().includes('terdaftar')) {
+            setError('reg-email-err', msg);
+            markField('reg-email', true);
+          } else {
+            setError('reg-general-err', msg);
+          }
+        }
+      }, 300);
+    }
+
+    // ── Theme icon sync ───────────────────────────────────────────────
+    function syncThemeIcon() {
+      var icon = $('theme-icon');
+      if (!icon) return;
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark' || document.documentElement.classList.contains('dark');
+      icon.textContent = isDark ? 'light_mode' : 'dark_mode';
+    }
+
+    // ── Init ──────────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', function () {
+      syncThemeIcon();
+
+      function checkSession() {
+        if (typeof URStorage !== 'undefined') {
+          var session = URStorage.getSession ? URStorage.getSession() : null;
+          if (session) { window.location.replace('dashboard.html'); return true; }
+        }
+        return false;
+      }
+
+      function tryInitAuthPage() {
+        if (typeof URAuth !== 'undefined' && URAuth.initAuthPage) {
+          URAuth.initAuthPage();
+        }
+      }
+
+      if (typeof URStorage !== 'undefined') {
+        if (!checkSession()) tryInitAuthPage();
+      } else {
+        var attempts = 0;
+        var poll = setInterval(function () {
+          if (typeof URStorage !== 'undefined' || ++attempts > 20) {
+            clearInterval(poll);
+            if (typeof URStorage !== 'undefined') {
+              if (!checkSession()) tryInitAuthPage();
+            }
+          }
+        }, 50);
+      }
+
+      if (window.location.hash === '#register') {
+        switchTab('register');
+      }
+
+      var loginForm = $('form-login');
+      if (loginForm) loginForm.addEventListener('submit', handleLogin);
+
+      var regForm = $('form-register');
+      if (regForm) regForm.addEventListener('submit', handleRegister);
+
+      new MutationObserver(syncThemeIcon).observe(
+        document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'class'] }
+      );
+    });
+
+  })();
+  </script>
+
+</body>
+</html>

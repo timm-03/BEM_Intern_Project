@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Utama — UR TASK</title>
+  
+  <!-- Inisialisasi tema sebelum render -->
+  <script>
+    (function(){
+      var t = localStorage.getItem('urtask_theme');
+      if (t === 'dark' || (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: ["class", '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          colors: {
+            "surface-container-high": "#ece7e2",
+            "surface-dim": "#ddd9d4",
+            "outline": "#747878",
+            "secondary": "#6c5b4d",
+            "secondary-container": "#f2dcca",
+            "on-primary": "#ffffff",
+            "on-secondary-container": "#706051",
+            "on-secondary-fixed-variant": "#534437",
+            "surface-bright": "#fdf9f3",
+            "inverse-surface": "#31302d",
+            "on-primary-fixed-variant": "#474746",
+            "tertiary-container": "#211e18",
+            "on-primary-container": "#878585",
+            "on-tertiary-fixed-variant": "#4b463f",
+            "primary": "#040505",
+            "secondary-fixed": "#f5decd",
+            "surface-tint": "#5f5e5e",
+            "surface-variant": "#e6e2dd",
+            "error": "#ba1a1a",
+            "surface-container-low": "#f7f3ee",
+            "tertiary-fixed": "#eae1d7",
+            "surface-container-lowest": "#ffffff",
+            "tertiary": "#070502",
+            "background": "#fdf9f3",
+            "tertiary-fixed-dim": "#cdc5bb",
+            "error-container": "#ffdad6",
+            "inverse-primary": "#c8c6c5",
+            "primary-fixed": "#e5e2e1",
+            "surface": "#fdf9f3",
+            "inverse-on-surface": "#f4f0eb",
+            "on-background": "#1c1c19",
+            "primary-fixed-dim": "#c8c6c5",
+            "surface-container-highest": "#e6e2dd",
+            "on-surface-variant": "#444748",
+            "on-secondary": "#ffffff",
+            "on-error": "#ffffff",
+            "on-error-container": "#93000a",
+            "secondary-fixed-dim": "#d8c3b2",
+            "on-tertiary-container": "#8c857c",
+            "outline-variant": "#c4c7c7",
+            "on-secondary-fixed": "#25190f",
+            "surface-container": "#f1ede8",
+            "on-tertiary-fixed": "#1f1b15",
+            "on-surface": "#1c1c19",
+            "on-primary-fixed": "#1b1b1c",
+            "on-tertiary": "#ffffff",
+            "primary-container": "#1e1e1e"
+          },
+          borderRadius: {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "gutter-mobile": "0.75rem",
+            "space-xl": "3rem",
+            "margin-mobile": "1.25rem",
+            "space-sm": "0.75rem",
+            "space-lg": "2rem",
+            "margin": "2.5rem",
+            "space-md": "1.25rem",
+            "space-xs": "0.375rem",
+            "gutter": "1.5rem"
+          },
+          fontFamily: {
+            "headline-lg-mobile": ["Playfair Display"],
+            "headline-sm": ["Playfair Display"],
+            "headline-lg": ["Playfair Display"],
+            "label-md": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "display-lg": ["Playfair Display"],
+            "headline-md": ["Playfair Display"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "label-lg": ["Plus Jakarta Sans"],
+            "label-sm": ["Plus Jakarta Sans"],
+            "display-lg-mobile": ["Playfair Display"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="css/theme.css">
+
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+    }
+  </style>
+
+  <!-- Core App Scripts -->
+  <script src="js/theme.js" defer></script>
+  <script src="js/storage.js" defer></script>
+  <script src="js/ui.js" defer></script>
+  <script src="js/auth.js" defer></script>
+  <script src="js/layout.js" defer></script>
+  <script src="js/dashboard.js" defer></script>
+</head>
+
+<body class="bg-background font-body-md text-on-surface antialiased min-h-screen selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+
+  <!-- Sidebar Navigasi Desktop -->
+  <aside class="fixed left-6 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col items-center justify-between w-14 py-4 rounded-full bg-surface-container-low/85 dark:bg-[#16171d]/85 backdrop-blur-2xl shadow-[0_16px_36px_-10px_rgba(54,46,38,0.08),0_4px_12px_-2px_rgba(54,46,38,0.04)] border border-outline-variant/20 dark:border-[#2a2c36]">
+    <div class="flex flex-col items-center gap-3">
+      <div id="user-avatar-initials-aside" class="w-10 h-10 rounded-full bg-primary text-on-primary dark:bg-[#f4efe6] dark:text-[#0e0f12] flex items-center justify-center font-bold text-sm select-none shadow-sm" title="Profil Anda">
+        U
+      </div>
+      <div class="w-5 h-[1px] bg-outline-variant/30 dark:bg-[#2a2c36] my-0.5"></div>
+      <nav class="flex flex-col items-center gap-3">
+        <a aria-current="page" class="w-10 h-10 rounded-full flex items-center justify-center transition-all bg-primary text-on-primary dark:bg-[#f4efe6] dark:text-[#0e0f12] shadow-sm" href="dashboard.html" title="Dashboard">
+          <span class="material-symbols-outlined text-[20px]">grid_view</span>
+        </a>
+        <a class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface dark:hover:bg-[#1f2029] dark:hover:text-[#f4efe6] transition-all" href="projects.html" title="Manajemen Proyek & Tugas">
+          <span class="material-symbols-outlined text-[20px]">folder_open</span>
+        </a>
+        <a class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface dark:hover:bg-[#1f2029] dark:hover:text-[#f4efe6] transition-all" href="archive.html" title="Arsip Proyek & Tugas">
+          <span class="material-symbols-outlined text-[20px]">bookmark</span>
+        </a>
+      </nav>
+    </div>
+    <div class="flex flex-col items-center gap-3 pt-3">
+      <div class="w-5 h-[1px] bg-outline-variant/30 dark:bg-[#2a2c36] my-0.5"></div>
+      <button data-theme-toggle aria-label="Toggle Mode Gelap/Terang" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface dark:hover:bg-[#1f2029] dark:hover:text-[#f4efe6] transition-all" title="Mode Tampilan">
+        <span class="material-symbols-outlined text-[20px]">dark_mode</span>
+      </button>
+      <button onclick="URAuth.logout()" aria-label="Keluar / Logout" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-error-container hover:text-error dark:hover:bg-red-950/40 dark:hover:text-red-400 transition-all" title="Keluar">
+        <span class="material-symbols-outlined text-[20px]">logout</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Navigasi Atas -->
+  <header class="fixed top-0 left-0 right-0 z-40 w-full px-4 lg:px-6 mt-4 pointer-events-none">
+    <div class="h-16 max-w-7xl mx-auto rounded-full bg-surface-container-low/85 dark:bg-[#16171d]/85 backdrop-blur-2xl shadow-[0_16px_36px_-10px_rgba(54,46,38,0.08),0_4px_12px_-2px_rgba(54,46,38,0.04)] border border-outline-variant/20 dark:border-[#2a2c36] px-5 flex items-center justify-between pointer-events-auto transition-all">
+      <div class="flex items-center gap-4">
+        <a href="dashboard.html" class="flex items-center gap-2 group whitespace-nowrap">
+          <span class="font-headline-sm text-lg md:text-xl tracking-tight text-primary dark:text-[#f4efe6] font-medium whitespace-nowrap">UR TASK</span>
+          <span class="font-label-sm text-[10px] tracking-widest text-secondary dark:text-[#c8a97e] px-2 py-0.5 rounded-full bg-secondary-fixed/50 dark:bg-[#1f2029] font-bold whitespace-nowrap">By Tim</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-1 p-1 rounded-full bg-surface-container/60 dark:bg-[#1f2029]/80 border border-transparent dark:border-[#2a2c36]">
+          <a aria-current="page" class="px-3.5 py-1.5 rounded-full font-label-md text-xs uppercase tracking-wider transition-colors bg-primary text-on-primary dark:bg-[#f4efe6] dark:text-[#0e0f12] shadow-sm font-semibold whitespace-nowrap" href="dashboard.html">Dashboard</a>
+          <a class="px-3.5 py-1.5 rounded-full font-label-md text-xs uppercase tracking-wider text-on-surface-variant hover:text-on-surface dark:hover:text-[#f4efe6] transition-colors whitespace-nowrap" href="projects.html">Proyek</a>
+          <a class="px-3.5 py-1.5 rounded-full font-label-md text-xs uppercase tracking-wider text-on-surface-variant hover:text-on-surface dark:hover:text-[#f4efe6] transition-colors whitespace-nowrap" href="archive.html">Arsip</a>
+        </nav>
+      </div>
+
+      <div class="flex items-center gap-2.5">
+        <!-- Tombol Ganti Tema -->
+        <button data-theme-toggle aria-label="Toggle Dark/Light Mode" class="w-9 h-9 rounded-full flex items-center justify-center bg-surface-container-high/60 hover:bg-surface-container-high dark:bg-[#1f2029] dark:hover:bg-[#282932] text-on-surface dark:text-[#f4efe6] transition-all" title="Mode Tampilan">
+          <span class="material-symbols-outlined text-[18px]">dark_mode</span>
+        </button>
+
+        <!-- Tombol Tambah Tugas Cepat -->
+        <button onclick="openQuickTaskModal()" class="hidden sm:flex items-center gap-1.5 h-9 px-4 rounded-full bg-primary text-on-primary hover:bg-secondary dark:bg-[#f4efe6] dark:text-[#0e0f12] dark:hover:bg-[#d9d4cb] transition-all shadow-sm font-label-md text-xs uppercase tracking-wider font-semibold shrink-0 whitespace-nowrap" type="button">
+          <span>Tugas Cepat</span>
+          <span class="material-symbols-outlined text-[16px]">add</span>
+        </button>
+
+        <div class="h-5 w-[1px] bg-outline-variant/30 dark:bg-[#2a2c36] hidden sm:block"></div>
+
+        <!-- Profil Pengguna & Keluar -->
+        <div class="flex items-center gap-1.5">
+          <a href="projects.html" id="user-avatar-initials-top" class="w-8 h-8 rounded-full bg-primary text-on-primary dark:bg-[#f4efe6] dark:text-[#0e0f12] flex items-center justify-center font-bold text-xs select-none shadow-sm" title="Profil">
+            U
+          </a>
+          <button onclick="URAuth.logout()" aria-label="Logout" class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-error-container hover:text-error dark:hover:bg-red-950/40 dark:hover:text-red-400 transition-colors" title="Keluar">
+            <span class="material-symbols-outlined text-[18px]">logout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Konten Utama -->
+  <div class="w-full lg:pl-28 pt-24 transition-all">
+    <main class="max-w-7xl mx-auto px-4 lg:px-6 pb-28 lg:pb-12 min-h-[calc(100vh-6rem)]">
+      <div class="flex flex-col w-full">
+
+        <!-- Efek Latar Belakang -->
+        <div class="relative w-full">
+          <div class="absolute -top-12 right-12 w-96 h-96 rounded-full bg-secondary-fixed/25 blur-3xl pointer-events-none -z-10"></div>
+          <div class="absolute top-48 left-1/4 w-80 h-80 rounded-full bg-surface-container-high/60 blur-3xl pointer-events-none -z-10"></div>
+
+          <!-- Banner Sapaan Pengguna -->
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
+            <div>
+              <div class="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-surface-container-high/80 dark:bg-[#1f2029] text-secondary dark:text-[#c8a97e] mb-space-xs shadow-sm">
+                <span class="w-1.5 h-1.5 rounded-full bg-secondary dark:bg-[#c8a97e] animate-pulse"></span>
+                <span class="font-label-sm text-[9px] font-medium tracking-[0.12em] uppercase" id="greeting-badge">UR TASK • Studio Workspace</span>
+              </div>
+              <h1 class="font-headline-md text-2xl md:text-3xl text-primary tracking-tight font-medium leading-tight" id="greeting-name">
+                Halo, Rekan Kerja
+              </h1>
+              <p class="font-body-md text-sm md:text-base text-on-surface-variant max-w-xl mt-1">
+                Pantau progres proyek aktif dan deadline tugasmu hari ini.
+              </p>
+            </div>
+
+            <!-- Status Sinkronisasi Lokal -->
+            <div class="flex items-center gap-space-xs px-4 py-2 rounded-full bg-surface-container-lowest/90 dark:bg-[#16171d] shadow-[0_4px_20px_rgba(54,46,38,0.06)] border border-outline-variant/20 dark:border-[#2a2c36] self-start md:self-auto">
+              <span class="material-symbols-outlined text-secondary dark:text-[#c8a97e] text-[18px]">verified</span>
+              <span class="font-label-md text-label-md text-on-surface tracking-normal font-medium">Penyimpanan Lokal Aktif</span>
+              <span class="inline-flex items-center justify-center w-2 h-2 rounded-full bg-emerald-600 ml-1 animate-pulse"></span>
+            </div>
+          </div>
+
+          <!-- Ringkasan Statistik -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-5 mb-space-xl">
+            <!-- Kartu 1: Total Proyek Aktif -->
+            <div class="md:col-span-4 rounded-3xl bg-surface-container-lowest/95 dark:bg-[#16171d] p-space-lg shadow-[0_16px_36px_-10px_rgba(54,46,38,0.06)] border border-outline-variant/15 dark:border-[#2a2c36] flex flex-col justify-between relative overflow-hidden group hover:shadow-[0_20px_40px_-10px_rgba(54,46,38,0.1)] transition-all">
+              <div class="flex items-center justify-between">
+                <span class="font-label-md text-label-md uppercase tracking-widest text-on-surface-variant font-semibold">Total Proyek Aktif</span>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed/50 dark:bg-[#1f2029] text-on-secondary-fixed dark:text-[#c8a97e] font-label-sm text-label-sm">
+                  <span class="w-1.5 h-1.5 rounded-full bg-secondary dark:bg-[#c8a97e]"></span>
+                  Berjalan
+                </span>
+              </div>
+              <div class="my-space-md">
+                <div class="flex items-baseline gap-2">
+                  <span id="stat-project-count" class="font-headline-md text-2xl md:text-3xl text-primary font-medium tracking-tight">0</span>
+                  <span class="font-body-md text-body-md text-on-surface-variant">Proyek Utama</span>
+                </div>
+                <p id="stat-project-desc" class="font-body-sm text-body-sm text-on-surface-variant mt-1 truncate">Memuat daftar proyek...</p>
+              </div>
+              <div class="pt-space-sm border-t border-surface-container dark:border-[#2a2c36] flex items-center justify-between text-on-surface-variant">
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[16px] text-secondary dark:text-[#c8a97e]">folder_special</span>
+                  <span id="stat-project-sub" class="font-body-sm text-body-sm">Kelola di menu Proyek</span>
+                </div>
+                <a href="projects.html" class="font-label-sm text-label-sm font-semibold text-primary group-hover:translate-x-1 transition-transform">
+                  Buka Proyek →
+                </a>
+              </div>
+            </div>
+
+            <!-- Kartu 2: Distribusi Status Tugas -->
+            <div class="md:col-span-5 rounded-3xl bg-surface-container-lowest/95 dark:bg-[#16171d] p-space-lg shadow-[0_16px_36px_-10px_rgba(54,46,38,0.06)] border border-outline-variant/15 dark:border-[#2a2c36] flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="font-label-md text-label-md uppercase tracking-widest text-on-surface-variant font-semibold">Distribusi Tugas Harian</span>
+                <span id="stat-total-tasks-badge" class="font-label-sm text-label-sm text-secondary dark:text-[#c8a97e] font-medium tracking-wider">0 Total Tugas</span>
+              </div>
+              <div class="my-space-sm">
+                <!-- Bar Progres Tugas -->
+                <div class="w-full h-3 rounded-full bg-surface-container-high dark:bg-[#282932] flex overflow-hidden p-0.5 gap-1 mb-space-sm" id="progress-bar-container">
+                  <div id="bar-done" class="h-full bg-primary rounded-full transition-all duration-500" style="width: 0%;" title="Selesai"></div>
+                  <div id="bar-progress" class="h-full bg-secondary rounded-full transition-all duration-500" style="width: 0%;" title="In Progress"></div>
+                  <div id="bar-todo" class="h-full bg-surface-dim rounded-full transition-all duration-500" style="width: 0%;" title="To-Do"></div>
+                </div>
+                <div class="grid grid-cols-3 gap-2 pt-1 text-center">
+                  <div class="p-2.5 rounded-2xl bg-surface-container-low/60 dark:bg-[#1f2029] flex flex-col items-center">
+                    <div class="flex items-center gap-1.5 mb-1">
+                      <span class="w-2 h-2 rounded-full bg-surface-dim"></span>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">To-Do</span>
+                    </div>
+                    <span id="stat-todo-count" class="font-headline-md text-2xl md:text-3xl text-primary font-medium">0</span>
+                  </div>
+                  <div class="p-2.5 rounded-2xl bg-secondary-fixed/30 dark:bg-[#1f2029] flex flex-col items-center">
+                    <div class="flex items-center gap-1.5 mb-1">
+                      <span class="w-2 h-2 rounded-full bg-secondary dark:bg-[#c8a97e]"></span>
+                      <span class="font-label-sm text-label-sm text-secondary dark:text-[#c8a97e] font-semibold uppercase">Progres</span>
+                    </div>
+                    <span id="stat-progress-count" class="font-headline-md text-2xl md:text-3xl text-primary font-medium">0</span>
+                  </div>
+                  <div class="p-2.5 rounded-2xl bg-surface-container-high/60 dark:bg-[#1f2029] flex flex-col items-center">
+                    <div class="flex items-center gap-1.5 mb-1">
+                      <span class="w-2 h-2 rounded-full bg-primary"></span>
+                      <span class="font-label-sm text-label-sm text-primary font-semibold uppercase">Selesai</span>
+                    </div>
+                    <span id="stat-done-count" class="font-headline-md text-2xl md:text-3xl text-primary font-medium">0</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between text-body-sm text-on-surface-variant pt-2 border-t border-surface-container dark:border-[#2a2c36]">
+                <span>Tingkat Penyelesaian</span>
+                <span id="stat-completion-pct" class="font-semibold text-primary">0% Selesai</span>
+              </div>
+            </div>
+
+            <!-- Kartu 3: Prioritas Deadline -->
+            <div class="md:col-span-3 rounded-3xl bg-primary-container dark:bg-[#1f2029] dark:border dark:border-[#2a2c36] p-space-lg shadow-[0_20px_40px_rgba(4,5,5,0.22)] flex flex-col justify-between relative overflow-hidden group">
+              <div class="absolute -right-10 -bottom-10 w-36 h-36 rounded-full bg-surface-tint/20 blur-2xl pointer-events-none"></div>
+              <div class="flex items-center justify-between gap-2 relative z-10">
+                <span class="text-[10px] tracking-[0.12em] uppercase font-semibold text-on-primary-container dark:text-[#d9d4cb] whitespace-nowrap">PRIORITAS DEADLINE</span>
+                <span id="stat-urgent-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full whitespace-nowrap shrink-0 text-[10px] font-semibold tracking-wider bg-emerald-700 text-white">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  <span>TERKENDALI</span>
+                </span>
+              </div>
+              <div class="my-space-md relative z-10">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <span id="stat-urgent-count" class="font-headline-md text-2xl md:text-3xl font-medium tracking-tight text-on-primary-container dark:text-[#f4efe6]">0</span>
+                    <p class="font-headline-sm text-[16px] text-on-primary-container dark:text-[#c8c3b8] tracking-normal font-light">Tugas Mendesak</p>
+                  </div>
+                  <a href="#urgent-tasks" class="w-11 h-11 rounded-full bg-black/10 dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 text-on-primary-container dark:text-[#f4efe6] transition-all flex items-center justify-center shadow-inner" title="Lihat Tugas Mendesak">
+                    <span class="material-symbols-outlined text-[20px]">north_east</span>
+                  </a>
+                </div>
+                <p id="stat-urgent-desc" class="font-body-sm text-xs text-on-primary-container dark:text-[#9e9a92] mt-2">Deadline terdekat atau sudah lewat batas.</p>
+              </div>
+              <div class="pt-space-xs relative z-10 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-secondary dark:bg-[#c8a97e] animate-pulse"></span>
+                <span id="stat-urgent-status" class="font-label-sm text-[11px] text-on-primary-container dark:text-[#d9d4cb]">Alur kerja optimal</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bagian Tugas Cepat & Deadline Terdekat -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mb-space-xl">
+            <!-- Kolom Kiri: Proyek Utama & Input Tugas Cepat -->
+            <div class="lg:col-span-6 flex flex-col gap-space-md">
+              <div class="flex items-center justify-between px-space-xs">
+                <div class="flex items-center gap-space-xs">
+                  <span class="font-headline-sm text-lg md:text-xl text-primary font-medium">Sorotan Proyek Terkini</span>
+                  <span id="featured-project-badge" class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-medium">Aktif</span>
+                </div>
+                <a href="projects.html" class="font-label-md text-label-md text-secondary hover:text-primary uppercase tracking-wider font-semibold transition-colors">
+                  Kelola Semua →
+                </a>
+              </div>
+
+              <!-- Proyek Utama -->
+              <div id="featured-project-pod" class="rounded-3xl bg-surface-container-lowest p-space-md lg:p-space-lg shadow-[0_16px_36px_-10px_rgba(54,46,38,0.06)] border border-outline-variant/15 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center gap-space-xs text-secondary mb-1">
+                    <span class="material-symbols-outlined text-[16px]">folder</span>
+                    <span id="featured-project-status" class="font-label-md text-label-md uppercase tracking-wider font-semibold">Proyek Aktif</span>
+                  </div>
+                  <h2 id="featured-project-name" class="font-headline-md text-lg md:text-xl text-primary tracking-tight mb-2 truncate">
+                    Belum Ada Proyek
+                  </h2>
+                  <p id="featured-project-desc" class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+                    Buat proyek pertama Anda untuk mulai mengatur sprint, tugas harian, dan berkas lampiran.
+                  </p>
+                </div>
+
+                <div class="my-space-md pt-2">
+                  <div class="flex justify-between items-center mb-1.5">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Progres Proyek Ini</span>
+                    <span id="featured-project-pct" class="font-label-md text-label-md text-primary font-bold">0%</span>
+                  </div>
+                  <div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+                    <div id="featured-project-bar" class="h-full bg-primary rounded-full transition-all duration-500" style="width: 0%;"></div>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between pt-space-xs border-t border-surface-container">
+                  <a href="projects.html" class="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-full bg-primary text-on-primary hover:bg-secondary transition-colors shadow-sm">
+                    <span class="font-label-md text-label-md uppercase tracking-wider font-semibold">Buka di Halaman Proyek</span>
+                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                  </a>
+                  <span id="featured-project-task-count" class="font-label-sm text-label-sm text-on-surface-variant">0 Tugas</span>
+                </div>
+              </div>
+
+              <!-- Form Input Tugas Cepat -->
+              <div class="rounded-3xl bg-surface-container-low p-space-md border border-outline-variant/15 shadow-sm">
+                <div class="flex items-center gap-2 mb-2 px-1">
+                  <span class="material-symbols-outlined text-secondary text-[20px]">bolt</span>
+                  <span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-semibold">Input Cepat Tugas Baru</span>
+                </div>
+                <form id="quick-task-form" onsubmit="handleQuickTaskSubmit(event)" class="flex flex-col gap-2.5">
+                  <div class="flex items-center gap-2 bg-surface-container-lowest rounded-full px-4 py-1.5 shadow-inner border border-outline-variant/20 focus-within:ring-2 focus-within:ring-primary/20">
+                    <span class="material-symbols-outlined text-outline text-[20px]">add_task</span>
+                    <input type="text" id="quick-task-title" placeholder="Ketik judul tugas baru lalu tekan Tambah..." required class="w-full bg-transparent border-0 text-on-surface placeholder:text-outline text-body-md focus:outline-none py-1">
+                  </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-12 gap-2">
+                    <select id="quick-task-project-select" required class="sm:col-span-5 min-w-0 w-full bg-surface-container-lowest dark:bg-[#1f2029] dark:text-[#f4efe6] dark:border dark:border-[#2a2c36] border border-outline-variant/20 text-on-surface font-body-sm rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer truncate">
+                      <option value="" disabled selected>Pilih Proyek...</option>
+                    </select>
+                    <input type="date" id="quick-task-deadline" class="sm:col-span-4 min-w-0 w-full bg-surface-container-lowest dark:bg-[#1f2029] dark:text-[#f4efe6] dark:border dark:border-[#2a2c36] border border-outline-variant/20 text-on-surface font-body-sm rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20">
+                    <button type="submit" class="sm:col-span-3 w-full px-3 py-2 rounded-full bg-primary text-on-primary dark:bg-[#f4efe6] dark:text-[#0e0f12] font-label-md text-label-md uppercase tracking-wider font-semibold hover:bg-secondary dark:hover:bg-[#d9d4cb] transition-colors shadow-sm flex items-center justify-center gap-1 whitespace-nowrap">
+                      <span>Tambah</span>
+                      <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Kolom Kanan: Daftar Deadline Terdekat -->
+            <div class="lg:col-span-6 flex flex-col gap-space-md" id="urgent-tasks">
+              <div class="flex items-center justify-between px-space-xs">
+                <div class="flex items-center gap-2">
+                  <span class="font-headline-sm text-lg md:text-xl text-primary font-medium">Deadline Terdekat</span>
+                  <span class="w-2 h-2 rounded-full bg-error"></span>
+                </div>
+                <a href="projects.html" class="font-label-md text-label-md text-secondary hover:text-primary uppercase tracking-wider font-semibold transition-colors">
+                  Semua Tugas →
+                </a>
+              </div>
+
+              <!-- Wadah Kartu Tugas -->
+              <div class="flex flex-col gap-space-sm" id="deadline-tasks-container">
+                <!-- Diisi secara dinamis oleh js/dashboard.js -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Navigasi Bawah Layar Mobile -->
+  <nav class="fixed bottom-4 left-4 right-4 z-50 lg:hidden rounded-full bg-surface-container-low/95 dark:bg-[#16171d]/95 backdrop-blur-xl border border-outline-variant/20 dark:border-[#2a2c36] flex items-center justify-around px-2 py-2 shadow-[0_8px_32px_rgba(54,46,38,0.14)]">
+    <a href="dashboard.html" class="flex flex-col items-center gap-0.5 px-4 py-1.5 rounded-full bg-primary text-on-primary dark:bg-[#f4efe6] dark:text-[#0e0f12]">
+      <span class="material-symbols-outlined text-[20px]">grid_view</span>
+      <span class="font-label-sm text-[9px] uppercase tracking-wider font-bold">Dashboard</span>
+    </a>
+    <a href="projects.html" class="flex flex-col items-center gap-0.5 px-4 py-1.5 rounded-full text-on-surface-variant hover:bg-surface-container dark:hover:bg-[#1f2029] dark:hover:text-[#f4efe6] transition-all">
+      <span class="material-symbols-outlined text-[20px]">folder_open</span>
+      <span class="font-label-sm text-[9px] uppercase tracking-wider">Proyek</span>
+    </a>
+    <button onclick="openQuickTaskModal()" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-full bg-secondary/10 dark:bg-[#c8a97e]/10 text-secondary dark:text-[#c8a97e] hover:bg-secondary/20 transition-all" type="button">
+      <span class="material-symbols-outlined text-[22px]">add_circle</span>
+      <span class="font-label-sm text-[9px] uppercase tracking-wider">Tugas</span>
+    </button>
+    <a href="archive.html" class="flex flex-col items-center gap-0.5 px-4 py-1.5 rounded-full text-on-surface-variant hover:bg-surface-container dark:hover:bg-[#1f2029] dark:hover:text-[#f4efe6] transition-all">
+      <span class="material-symbols-outlined text-[20px]">bookmark</span>
+      <span class="font-label-sm text-[9px] uppercase tracking-wider">Arsip</span>
+    </a>
+  </nav>
+
+  <!-- Modal Tambah Tugas Cepat -->
+  <dialog id="modal-quick-task" class="p-0 bg-transparent max-w-md w-[92vw] m-auto rounded-3xl shadow-2xl">
+    <div class="p-space-lg rounded-3xl bg-surface-container-low text-on-surface shadow-xl flex flex-col gap-space-md border border-outline-variant/20">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-semibold">Tugas Cepat</span>
+          <h3 class="font-headline-sm text-headline-sm text-primary">Tambah Tugas Baru</h3>
+        </div>
+        <button onclick="document.getElementById('modal-quick-task').close()" class="w-9 h-9 rounded-full bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface-variant transition-colors" type="button">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <form id="modal-quick-task-form" onsubmit="handleModalQuickTaskSubmit(event)" class="flex flex-col gap-space-sm">
+        <div>
+          <label class="block font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant mb-1">Judul Tugas *</label>
+          <input type="text" id="modal-task-title" placeholder="Contoh: Finalisasi Wireframe Sprint 1" required class="w-full px-space-md py-2.5 rounded-full bg-surface-container-lowest text-on-surface font-body-md focus:outline-none focus:ring-2 focus:ring-primary shadow-inner">
+        </div>
+        <div>
+          <label class="block font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant mb-1">Pilih Proyek *</label>
+          <select id="modal-task-project" required class="w-full px-space-md py-2.5 rounded-full bg-surface-container-lowest text-on-surface font-body-md focus:outline-none focus:ring-2 focus:ring-primary shadow-inner cursor-pointer">
+            <option value="" disabled selected>Pilih salah satu proyek...</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant mb-1">Deadline</label>
+          <input type="date" id="modal-task-deadline" class="w-full px-space-md py-2.5 rounded-full bg-surface-container-lowest text-on-surface font-body-md focus:outline-none focus:ring-2 focus:ring-primary shadow-inner">
+        </div>
+        <div>
+          <label class="block font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant mb-1">Status Awal</label>
+          <select id="modal-task-status" class="w-full px-space-md py-2.5 rounded-full bg-surface-container-lowest text-on-surface font-body-md focus:outline-none focus:ring-2 focus:ring-primary shadow-inner cursor-pointer">
+            <option value="To-do">To-do</option>
+            <option value="In-Progress">In-Progress</option>
+            <option value="Done">Done</option>
+          </select>
+        </div>
+
+        <div class="flex items-center justify-end gap-space-xs pt-2">
+          <button type="button" onclick="document.getElementById('modal-quick-task').close()" class="px-space-md py-2.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-md text-label-md uppercase tracking-wider hover:bg-surface-container transition-colors">
+            Batal
+          </button>
+          <button type="submit" class="px-space-lg py-2.5 rounded-full bg-primary text-on-primary font-label-md text-label-md uppercase tracking-wider font-semibold hover:bg-secondary transition-colors shadow-md">
+            Simpan Tugas
+          </button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+</body>
+</html>
