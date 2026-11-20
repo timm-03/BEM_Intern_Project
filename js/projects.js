@@ -355,7 +355,7 @@
         <div class="flex items-start justify-between gap-space-sm mb-space-xs">
           <div class="flex items-center gap-space-xs">
             <span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-semibold">
-              ${String(idx + 1).padStart(2, '0')} / PROYEK
+              ${idx + 1} / PROYEK
             </span>
             <span class="text-outline-variant/60 text-xs">/</span>
             <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">${_escapeHTML(project.status || 'Aktif')}</span>

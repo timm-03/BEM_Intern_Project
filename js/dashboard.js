@@ -46,7 +46,7 @@
     // Kartu 1: Total Proyek Aktif
     var projectCountEl = document.getElementById('stat-project-count');
     var projectDescEl = document.getElementById('stat-project-desc');
-    if (projectCountEl) projectCountEl.textContent = String(projects.length).padStart(2, '0');
+    if (projectCountEl) projectCountEl.textContent = projects.length;
     if (projectDescEl) {
       if (projects.length === 0) {
         projectDescEl.textContent = 'Belum ada proyek aktif. Silakan buat di menu Proyek.';
@@ -68,9 +68,9 @@
     var totalTasksBadgeEl = document.getElementById('stat-total-tasks-badge');
     var completionPctEl = document.getElementById('stat-completion-pct');
 
-    if (todoCountEl) todoCountEl.textContent = String(todoTasks.length).padStart(2, '0');
-    if (progressCountEl) progressCountEl.textContent = String(progressTasks.length).padStart(2, '0');
-    if (doneCountEl) doneCountEl.textContent = String(doneTasks.length).padStart(2, '0');
+    if (todoCountEl) todoCountEl.textContent = todoTasks.length;
+    if (progressCountEl) progressCountEl.textContent = progressTasks.length;
+    if (doneCountEl) doneCountEl.textContent = doneTasks.length;
     if (totalTasksBadgeEl) totalTasksBadgeEl.textContent = totalTasks + ' Total Tugas';
 
     var donePct = totalTasks > 0 ? Math.round((doneTasks.length / totalTasks) * 100) : 0;
@@ -106,7 +106,7 @@
     var urgentDescEl = document.getElementById('stat-urgent-desc');
     var urgentStatusEl = document.getElementById('stat-urgent-status');
 
-    if (urgentCountEl) urgentCountEl.textContent = String(urgentTotal).padStart(2, '0');
+    if (urgentCountEl) urgentCountEl.textContent = urgentTotal;
     if (urgentBadgeEl) {
       if (overdueCount > 0) {
         urgentBadgeEl.innerHTML = '<span>' + overdueCount + ' TERLAMBAT</span>';
