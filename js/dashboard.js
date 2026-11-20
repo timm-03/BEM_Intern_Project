@@ -351,7 +351,12 @@
 
   window.openQuickTaskModal = function () {
     var modal = document.getElementById('modal-quick-task');
-    if (modal) modal.showModal();
+    if (modal) {
+      if (window.URUI && URUI.syncStatusPills) {
+        URUI.syncStatusPills('modal-quick-task-status-selector', 'To-do');
+      }
+      modal.showModal();
+    }
   };
 
   function _escapeHTML(str) {

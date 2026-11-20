@@ -398,6 +398,70 @@
       .replace(/'/g,  '&#39;');
   }
 
+  // ── Helper Pemilih Status Pill (Modal Proyek & Tugas) ──
+  var PILL_ACTIVE_CLASSES = [
+    'bg-[#1c1c19]',
+    'text-white',
+    'border-[#1c1c19]',
+    'dark:bg-[#f4efe6]',
+    'dark:text-[#0e0f12]',
+    'dark:border-[#f4efe6]'
+  ];
+  var PILL_INACTIVE_CLASSES = [
+    'bg-surface-container-lowest',
+    'text-on-surface-variant',
+    'border-outline-variant/30',
+    'dark:bg-[#1f2029]',
+    'dark:text-[#9e9a92]',
+    'dark:border-[#2a2c36]'
+  ];
+
+  function syncStatusPills(containerOrId, activeValue) {
+    var container = typeof containerOrId === 'string' ? document.getElementById(containerOrId) : containerOrId;
+    if (!container) return;
+
+    var hiddenInputId = container.getAttribute('data-hidden-input');
+    var hiddenInput = hiddenInputId ? document.getElementById(hiddenInputId) : container.querySelector('input[type="hidden"]');
+    if (!hiddenInput && container.previousElementSibling && container.previousElementSibling.type === 'hidden') {
+      hiddenInput = container.previousElementSibling;
+    }
+
+    var targetVal = (activeValue || (hiddenInput ? hiddenInput.value : '') || '').trim().toLowerCase();
+    var buttons = container.querySelectorAll('.status-pill-btn, button[data-status-val]');
+
+    buttons.forEach(function (btn) {
+      var btnVal = (btn.getAttribute('data-status-val') || btn.textContent.trim()).toLowerCase();
+      var isSelected = (btnVal === targetVal) ||
+                       (targetVal && btnVal.indexOf(targetVal) !== -1) ||
+                       (targetVal && targetVal.indexOf(btnVal) !== -1);
+
+      if (isSelected) {
+        PILL_INACTIVE_CLASSES.forEach(function (c) { btn.classList.remove(c); });
+        PILL_ACTIVE_CLASSES.forEach(function (c) { btn.classList.add(c); });
+        btn.setAttribute('aria-pressed', 'true');
+        if (hiddenInput) {
+          hiddenInput.value = btn.getAttribute('data-status-val') || btn.textContent.trim();
+        }
+      } else {
+        PILL_ACTIVE_CLASSES.forEach(function (c) { btn.classList.remove(c); });
+        PILL_INACTIVE_CLASSES.forEach(function (c) { btn.classList.add(c); });
+        btn.setAttribute('aria-pressed', 'false');
+      }
+    });
+  }
+
+  // Delegasi klik untuk tombol pill status form
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.status-pill-btn, [data-status-val]');
+    if (!btn) return;
+    var container = btn.closest('[data-status-selector], [data-hidden-input], #project-status-selector, #task-status-selector, #modal-quick-task-status-selector');
+    if (!container) return;
+
+    e.preventDefault();
+    var val = btn.getAttribute('data-status-val') || btn.textContent.trim();
+    syncStatusPills(container, val);
+  });
+
   // Ekspor modul UI
   window.URUI = {
     showToast:          showToast,
@@ -406,5 +470,6 @@
     clearEmptyState:    clearEmptyState,
     getStatusBadgeHTML: getStatusBadgeHTML,
     formatDeadline:     formatDeadline,
+    syncStatusPills:    syncStatusPills,
   };
 }());

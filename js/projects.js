@@ -129,10 +129,12 @@
   window.setFilterStatus = function (status) {
     currentStatusFilter = status;
     document.querySelectorAll('.status-filter-btn').forEach(function (btn) {
-      if (btn.getAttribute('data-status-filter') === status) {
-        btn.className = 'status-filter-btn px-space-md py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md uppercase tracking-wider shadow-sm transition-all';
+      var isCurrent = btn.getAttribute('data-status-filter') === status;
+      var baseClasses = 'status-filter-btn px-3 py-1.5 rounded-full font-label-sm text-[10px] sm:text-[11px] uppercase tracking-[0.06em] font-semibold transition-colors whitespace-nowrap ';
+      if (isCurrent) {
+        btn.className = baseClasses + 'bg-primary text-on-primary dark:bg-[#f4efe6] dark:text-[#0e0f12] shadow-sm';
       } else {
-        btn.className = 'status-filter-btn px-space-md py-1.5 rounded-full text-on-surface-variant hover:text-on-surface font-label-md text-label-md uppercase tracking-wider transition-all';
+        btn.className = baseClasses + 'text-on-surface-variant hover:text-on-surface dark:hover:text-[#f4efe6]';
       }
     });
     renderAll();
@@ -341,10 +343,10 @@
       var isActive = project.id === activeProjectId;
 
       var card = document.createElement('article');
-      card.className = 'project-card relative group p-space-md rounded-3xl transition-all cursor-pointer border ' +
+      card.className = 'project-card relative group p-space-md rounded-3xl transition-colors cursor-pointer border ' +
         (isActive
-          ? 'bg-surface-container-lowest shadow-[0_16px_36px_-10px_rgba(54,46,38,0.1)] ring-2 ring-primary border-transparent'
-          : 'bg-surface-container-low hover:bg-surface-container-lowest border-outline-variant/15 shadow-sm');
+          ? 'bg-surface-container-lowest dark:bg-[#1f2029] border-primary dark:border-[#f4efe6] shadow-sm'
+          : 'bg-surface-container-low dark:bg-[#16171d] hover:bg-surface-container-lowest dark:hover:bg-[#1f2029] border-outline-variant/15 dark:border-[#2a2c36] shadow-sm');
       card.setAttribute('data-project-id', project.id);
 
       card.addEventListener('click', function () {
@@ -477,7 +479,7 @@
             <button class="w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${isDone ? 'bg-primary text-on-primary border-primary' : 'border-outline-variant text-transparent hover:border-primary hover:text-primary'}" onclick="toggleTaskCompletion('${task.id}')" title="Tandai Selesai" type="button">
               <span class="material-symbols-outlined text-[14px]">check</span>
             </button>
-            <span class="font-label-sm text-label-sm uppercase tracking-widest px-2 py-0.5 rounded ${isDone ? 'bg-surface-container-highest text-on-surface-variant' : 'bg-secondary-fixed text-on-secondary-fixed'} font-semibold">
+            <span class="font-label-sm text-[10px] font-semibold tracking-[0.05em] uppercase px-2 py-0.5 rounded ${isDone ? 'bg-surface-container-highest dark:bg-[#282932] text-on-surface-variant dark:text-[#9e9a92]' : 'bg-secondary-fixed dark:bg-[#1f2029] text-on-secondary-fixed dark:text-[#c8a97e]'}">
               ${_escapeHTML(task.status)}
             </span>
             <span class="font-label-sm text-label-sm ${deadlineInfo.isOverdue ? 'text-error font-semibold' : 'text-on-surface-variant'} flex items-center gap-0.5">
@@ -518,14 +520,14 @@
           ` : '<span class="text-[11px] text-outline italic">Tidak ada lampiran</span>'}
 
           <!-- Inline Status Buttons Switcher -->
-          <div class="flex items-center p-0.5 rounded-full bg-surface-container">
-            <button class="px-3 py-1 rounded-full font-label-sm text-label-sm uppercase tracking-wider transition-all ${task.status === 'To-do' ? 'bg-primary text-on-primary shadow-sm font-semibold' : 'text-on-surface-variant hover:text-on-surface'}" onclick="changeTaskStatusInline('${task.id}', 'To-do')" type="button">
+          <div class="flex items-center p-0.5 rounded-full bg-surface-container dark:bg-[#1f2029] border border-transparent dark:border-[#2a2c36]">
+            <button class="px-2.5 py-1 rounded-full font-label-sm text-[10px] font-semibold tracking-[0.04em] uppercase transition-colors whitespace-nowrap ${task.status === 'To-do' ? 'bg-primary text-on-primary dark:bg-[#f4efe6] dark:text-[#0e0f12] shadow-sm' : 'text-on-surface-variant hover:text-on-surface dark:hover:text-[#f4efe6]'}" onclick="changeTaskStatusInline('${task.id}', 'To-do')" type="button">
               To-Do
             </button>
-            <button class="px-3 py-1 rounded-full font-label-sm text-label-sm uppercase tracking-wider transition-all ${task.status === 'In-Progress' ? 'bg-primary text-on-primary shadow-sm font-semibold' : 'text-on-surface-variant hover:text-on-surface'}" onclick="changeTaskStatusInline('${task.id}', 'In-Progress')" type="button">
+            <button class="px-2.5 py-1 rounded-full font-label-sm text-[10px] font-semibold tracking-[0.04em] uppercase transition-colors whitespace-nowrap ${task.status === 'In-Progress' ? 'bg-primary text-on-primary dark:bg-[#f4efe6] dark:text-[#0e0f12] shadow-sm' : 'text-on-surface-variant hover:text-on-surface dark:hover:text-[#f4efe6]'}" onclick="changeTaskStatusInline('${task.id}', 'In-Progress')" type="button">
               In-Progress
             </button>
-            <button class="px-3 py-1 rounded-full font-label-sm text-label-sm uppercase tracking-wider transition-all ${task.status === 'Done' ? 'bg-primary text-on-primary shadow-sm font-semibold' : 'text-on-surface-variant hover:text-on-surface'}" onclick="changeTaskStatusInline('${task.id}', 'Done')" type="button">
+            <button class="px-2.5 py-1 rounded-full font-label-sm text-[10px] font-semibold tracking-[0.04em] uppercase transition-colors whitespace-nowrap ${task.status === 'Done' ? 'bg-primary text-on-primary dark:bg-[#f4efe6] dark:text-[#0e0f12] shadow-sm' : 'text-on-surface-variant hover:text-on-surface dark:hover:text-[#f4efe6]'}" onclick="changeTaskStatusInline('${task.id}', 'Done')" type="button">
               Done
             </button>
           </div>
@@ -577,14 +579,18 @@
         deadlineInput.value = project.deadline || '';
         descInput.value = project.description || '';
 
-        var radio = form.querySelector(`input[name="project-status"][value="${project.status}"]`);
-        if (radio) radio.checked = true;
+        if (window.URUI && URUI.syncStatusPills) {
+          URUI.syncStatusPills('project-status-selector', project.status || 'Aktif');
+        }
 
         if (dangerZone) dangerZone.classList.remove('hidden');
       }
     } else {
       titleEl.textContent = 'Tambah Proyek Baru';
       idInput.value = '';
+      if (window.URUI && URUI.syncStatusPills) {
+        URUI.syncStatusPills('project-status-selector', 'Aktif');
+      }
       if (dangerZone) dangerZone.classList.add('hidden');
     }
 
@@ -621,8 +627,9 @@
     var name = document.getElementById('input-project-name').value.trim();
     var deadline = document.getElementById('input-project-deadline').value;
     var desc = document.getElementById('input-project-desc').value.trim();
+    var statusInput = document.getElementById('input-project-status');
     var statusRadio = document.querySelector('input[name="project-status"]:checked');
-    var status = statusRadio ? statusRadio.value : 'Aktif';
+    var status = (statusInput && statusInput.value) ? statusInput.value : (statusRadio ? statusRadio.value : 'Aktif');
 
     if (!name) {
       URUI.showToast('Nama proyek wajib diisi.', 'error');
@@ -712,7 +719,10 @@
         taskTitleInput.value = task.title;
         projectSelect.value = task.projectId;
         deadlineInput.value = task.deadline || '';
-        statusSelect.value = task.status;
+        if (statusSelect) statusSelect.value = task.status;
+        if (window.URUI && URUI.syncStatusPills) {
+          URUI.syncStatusPills('task-status-selector', task.status || 'To-do');
+        }
         descInput.value = task.description || '';
 
         if (task.attachmentMeta) {
@@ -730,7 +740,10 @@
       idInput.value = '';
       if (defaultProjectId) projectSelect.value = defaultProjectId;
       else if (activeProjectId) projectSelect.value = activeProjectId;
-      if (defaultStatus) statusSelect.value = defaultStatus;
+      if (defaultStatus && statusSelect) statusSelect.value = defaultStatus;
+      if (window.URUI && URUI.syncStatusPills) {
+        URUI.syncStatusPills('task-status-selector', defaultStatus || 'To-do');
+      }
 
       existingAttachContainer.classList.add('hidden');
       existingAttachContainer.classList.remove('flex');
