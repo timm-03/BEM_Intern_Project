@@ -138,7 +138,7 @@
   <script src="js/projects.js" defer></script>
 </head>
 
-<body class="bg-background font-body-md text-on-surface antialiased min-h-screen selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<body class="bg-background font-body-md text-on-surface antialiased min-h-screen overflow-x-hidden selection:bg-secondary-fixed selection:text-on-secondary-fixed">
 
   <!-- Sidebar Navigasi Desktop -->
   <aside class="fixed left-6 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col items-center justify-between w-14 py-4 rounded-full bg-surface-container-low/85 dark:bg-[#16171d]/85 backdrop-blur-2xl shadow-[0_16px_36px_-10px_rgba(54,46,38,0.08),0_4px_12px_-2px_rgba(54,46,38,0.04)] border border-outline-variant/20 dark:border-[#2a2c36]">
@@ -255,7 +255,7 @@
           </div>
 
         <!-- Bar Pencarian & Filter -->
-        <div class="p-2 mb-space-lg rounded-3xl md:rounded-full bg-surface-container-low/90 dark:bg-[#16171d]/90 backdrop-blur-xl shadow-[0_16px_36px_-10px_rgba(54,46,38,0.08)] border border-outline-variant/20 dark:border-[#2a2c36] flex flex-col md:flex-row items-center justify-between gap-3">
+        <div class="p-2 mb-space-lg rounded-3xl md:rounded-full bg-surface-container-low/90 dark:bg-[#16171d]/90 backdrop-blur-xl shadow-[0_16px_36px_-10px_rgba(54,46,38,0.08)] border border-outline-variant/20 dark:border-[#2a2c36] flex flex-col md:flex-row items-stretch md:items-center justify-between gap-2 overflow-x-hidden">
           
           <!-- Input Pencarian -->
           <div class="flex items-center gap-space-xs w-full md:w-80 px-4 py-2 rounded-full bg-surface-container dark:bg-[#1f2029] shadow-inner border border-outline-variant/15 dark:border-[#2a2c36]">
@@ -267,7 +267,7 @@
           </div>
 
           <!-- Filter Status Tugas -->
-          <div class="flex items-center gap-1 overflow-x-auto no-scrollbar w-full md:w-auto p-1 rounded-full bg-surface-container/60 dark:bg-[#1f2029]/80 border border-transparent dark:border-[#2a2c36] min-w-0">
+          <div class="flex items-center gap-1 overflow-x-auto no-scrollbar w-full md:w-auto p-1 rounded-full bg-surface-container/60 dark:bg-[#1f2029]/80 border border-transparent dark:border-[#2a2c36] flex-shrink-0">
             <button onclick="setFilterStatus('all')" class="status-filter-btn px-3.5 py-1.5 rounded-full bg-primary text-on-primary dark:bg-[#f4efe6] dark:text-[#0e0f12] font-label-md text-xs uppercase tracking-wider shadow-sm transition-all whitespace-nowrap font-semibold" data-status-filter="all" type="button">
               Semua
             </button>
@@ -283,7 +283,7 @@
           </div>
 
           <!-- Pengganti Tampilan (Kanban & List) -->
-          <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+          <div class="flex flex-wrap items-center gap-2 w-full md:w-auto justify-end">
             <!-- Tombol Ganti Tampilan -->
             <div class="flex items-center p-1 rounded-full bg-surface-container dark:bg-[#1f2029] border border-transparent dark:border-[#2a2c36]">
               <button id="view-mode-kanban" onclick="switchViewMode('kanban')" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full font-label-md text-xs uppercase tracking-wider bg-primary text-on-primary dark:bg-[#f4efe6] dark:text-[#0e0f12] shadow-sm transition-all whitespace-nowrap font-semibold" title="Tampilan Papan Kanban">

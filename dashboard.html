@@ -133,7 +133,7 @@
   <script src="js/dashboard.js" defer></script>
 </head>
 
-<body class="bg-background font-body-md text-on-surface antialiased min-h-screen selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<body class="bg-background font-body-md text-on-surface antialiased min-h-screen overflow-x-hidden selection:bg-secondary-fixed selection:text-on-secondary-fixed">
 
   <!-- Sidebar Navigasi Desktop -->
   <aside class="fixed left-6 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col items-center justify-between w-14 py-4 rounded-full bg-surface-container-low/85 dark:bg-[#16171d]/85 backdrop-blur-2xl shadow-[0_16px_36px_-10px_rgba(54,46,38,0.08),0_4px_12px_-2px_rgba(54,46,38,0.04)] border border-outline-variant/20 dark:border-[#2a2c36]">
@@ -237,21 +237,21 @@
           </div>
 
           <!-- Ringkasan Statistik -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-5 mb-space-xl">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-5 mb-space-xl">
             <!-- Kartu 1: Total Proyek Aktif -->
             <div class="md:col-span-4 rounded-3xl bg-surface-container-lowest/95 dark:bg-[#16171d] p-space-lg shadow-[0_16px_36px_-10px_rgba(54,46,38,0.06)] border border-outline-variant/15 dark:border-[#2a2c36] flex flex-col justify-between relative overflow-hidden group hover:shadow-[0_20px_40px_-10px_rgba(54,46,38,0.1)] transition-all">
               <div class="flex items-center justify-between">
-                <span class="font-label-md text-label-md uppercase tracking-widest text-on-surface-variant font-semibold">Total Proyek Aktif</span>
+                <span class="font-label-sm text-[11px] uppercase tracking-[0.06em] text-on-surface-variant font-semibold">Total Proyek Aktif</span>
                 <span class="inline-flex items-center px-2 py-0.5 rounded bg-secondary-fixed/50 dark:bg-[#1f2029] text-on-secondary-fixed dark:text-[#c8a97e] font-label-sm text-xs font-medium">
                   Berjalan
                 </span>
               </div>
               <div class="my-space-md">
                 <div class="flex items-baseline gap-2">
-                  <span id="stat-project-count" class="font-headline-md text-2xl md:text-3xl text-primary font-medium tracking-tight">0</span>
+                  <span id="stat-project-count" class="font-headline-md text-2xl sm:text-[28px] text-primary font-medium tracking-tight">0</span>
                   <span class="font-body-md text-body-md text-on-surface-variant">Proyek Utama</span>
                 </div>
-                <p id="stat-project-desc" class="font-body-sm text-body-sm text-on-surface-variant mt-1 truncate">Memuat daftar proyek...</p>
+                <p id="stat-project-desc" class="font-body-sm text-body-sm text-on-surface-variant mt-1">Memuat daftar proyek...</p>
               </div>
               <div class="pt-space-sm border-t border-surface-container dark:border-[#2a2c36] flex items-center justify-between text-on-surface-variant">
                 <div class="flex items-center gap-1.5">
@@ -267,7 +267,7 @@
             <!-- Kartu 2: Distribusi Status Tugas -->
             <div class="md:col-span-5 rounded-3xl bg-surface-container-lowest/95 dark:bg-[#16171d] p-space-lg shadow-[0_16px_36px_-10px_rgba(54,46,38,0.06)] border border-outline-variant/15 dark:border-[#2a2c36] flex flex-col justify-between">
               <div class="flex items-center justify-between">
-                <span class="font-label-md text-label-md uppercase tracking-widest text-on-surface-variant font-semibold">Distribusi Tugas Harian</span>
+                <span class="font-label-sm text-[11px] uppercase tracking-[0.06em] text-on-surface-variant font-semibold">Distribusi Tugas Harian</span>
                 <span id="stat-total-tasks-badge" class="font-label-sm text-label-sm text-secondary dark:text-[#c8a97e] font-medium tracking-wider">0 Total Tugas</span>
               </div>
               <div class="my-space-sm">
@@ -280,21 +280,21 @@
                 <div class="grid grid-cols-3 gap-2 pt-1 text-center">
                   <div class="p-2.5 rounded-lg bg-surface-container-low/60 dark:bg-[#1f2029] flex flex-col items-center border border-outline-variant/10 dark:border-[#2a2c36]">
                     <div class="mb-1">
-                      <span class="font-label-sm text-xs text-on-surface-variant uppercase font-medium">To-Do</span>
+                      <span class="font-label-sm text-[11px] text-on-surface-variant uppercase font-medium">To-Do</span>
                     </div>
-                    <span id="stat-todo-count" class="font-headline-md text-2xl md:text-3xl text-primary font-medium">0</span>
+                    <span id="stat-todo-count" class="font-headline-md text-2xl sm:text-[28px] text-primary font-medium">0</span>
                   </div>
                   <div class="p-2.5 rounded-lg bg-secondary-fixed/30 dark:bg-[#1f2029] flex flex-col items-center border border-outline-variant/10 dark:border-[#2a2c36]">
                     <div class="mb-1">
-                      <span class="font-label-sm text-xs text-secondary dark:text-[#c8a97e] font-semibold uppercase">Progres</span>
+                      <span class="font-label-sm text-[11px] text-secondary dark:text-[#c8a97e] font-medium uppercase">Progres</span>
                     </div>
-                    <span id="stat-progress-count" class="font-headline-md text-2xl md:text-3xl text-primary font-medium">0</span>
+                    <span id="stat-progress-count" class="font-headline-md text-2xl sm:text-[28px] text-primary font-medium">0</span>
                   </div>
                   <div class="p-2.5 rounded-lg bg-surface-container-high/60 dark:bg-[#1f2029] flex flex-col items-center border border-outline-variant/10 dark:border-[#2a2c36]">
                     <div class="mb-1">
-                      <span class="font-label-sm text-xs text-primary font-semibold uppercase">Selesai</span>
+                      <span class="font-label-sm text-[11px] text-primary font-medium uppercase">Selesai</span>
                     </div>
-                    <span id="stat-done-count" class="font-headline-md text-2xl md:text-3xl text-primary font-medium">0</span>
+                    <span id="stat-done-count" class="font-headline-md text-2xl sm:text-[28px] text-primary font-medium">0</span>
                   </div>
                 </div>
               </div>
@@ -314,7 +314,7 @@
               <div class="my-space-md relative z-10">
                 <div class="flex items-center justify-between">
                   <div>
-                    <span id="stat-urgent-count" class="font-headline-md text-2xl md:text-3xl font-medium tracking-tight text-on-primary-container dark:text-[#f4efe6]">0</span>
+                    <span id="stat-urgent-count" class="font-headline-md text-2xl sm:text-[28px] font-medium tracking-tight text-on-primary-container dark:text-[#f4efe6]">0</span>
                     <p class="font-headline-sm text-[16px] text-on-primary-container dark:text-[#c8c3b8] tracking-normal font-light">Tugas Mendesak</p>
                   </div>
                   <a href="#urgent-tasks" class="w-11 h-11 rounded-full bg-black/10 dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 text-on-primary-container dark:text-[#f4efe6] transition-all flex items-center justify-center shadow-inner" title="Lihat Tugas Mendesak">
@@ -333,12 +333,12 @@
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mb-space-xl">
             <!-- Kolom Kiri: Proyek Utama & Input Tugas Cepat -->
             <div class="lg:col-span-6 flex flex-col gap-space-md">
-              <div class="flex items-center justify-between px-space-xs">
+              <div class="flex flex-wrap items-center justify-between gap-2 px-space-xs">
                 <div class="flex items-center gap-space-xs">
                   <span class="font-headline-sm text-lg md:text-xl text-primary font-medium">Sorotan Proyek Terkini</span>
                   <span id="featured-project-badge" class="font-label-sm text-xs px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-medium">Aktif</span>
                 </div>
-                <a href="projects.html" class="font-label-md text-label-md text-secondary hover:text-primary uppercase tracking-wider font-semibold transition-colors">
+                <a href="projects.html" class="font-label-sm text-xs text-secondary hover:text-primary font-medium tracking-normal transition-colors whitespace-nowrap">
                   Kelola Semua →
                 </a>
               </div>
@@ -369,9 +369,9 @@
                 </div>
 
                 <div class="flex items-center justify-between pt-space-xs border-t border-surface-container">
-                  <a href="projects.html" class="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-full bg-primary text-on-primary hover:bg-secondary transition-colors shadow-sm">
-                    <span class="font-label-md text-label-md uppercase tracking-wider font-semibold">Buka di Halaman Proyek</span>
-                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                  <a href="projects.html" class="inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-primary text-on-primary hover:bg-secondary transition-colors shadow-sm">
+                    <span class="font-label-sm text-xs font-semibold tracking-normal">Buka di Halaman Proyek</span>
+                    <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
                   </a>
                   <span id="featured-project-task-count" class="font-label-sm text-label-sm text-on-surface-variant">0 Tugas</span>
                 </div>
@@ -381,7 +381,7 @@
               <div class="rounded-3xl bg-surface-container-low p-space-md border border-outline-variant/15 shadow-sm">
                 <div class="flex items-center gap-2 mb-2 px-1">
                   <span class="material-symbols-outlined text-secondary text-[20px]">bolt</span>
-                  <span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-semibold">Input Cepat Tugas Baru</span>
+                  <span class="font-label-sm text-[11px] uppercase tracking-[0.06em] text-secondary font-semibold">Input Cepat Tugas Baru</span>
                 </div>
                 <form id="quick-task-form" onsubmit="handleQuickTaskSubmit(event)" class="flex flex-col gap-2.5">
                   <div class="flex items-center gap-2 bg-surface-container-lowest rounded-full px-4 py-1.5 shadow-inner border border-outline-variant/20 focus-within:ring-2 focus-within:ring-primary/20">
@@ -393,9 +393,8 @@
                       <option value="" disabled selected>Pilih Proyek...</option>
                     </select>
                     <input type="date" id="quick-task-deadline" class="sm:col-span-4 min-w-0 w-full bg-surface-container-lowest dark:bg-[#1f2029] dark:text-[#f4efe6] dark:border dark:border-[#2a2c36] border border-outline-variant/20 text-on-surface font-body-sm rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20">
-                    <button type="submit" class="sm:col-span-3 w-full px-3 py-2 rounded-full bg-primary text-on-primary dark:bg-[#f4efe6] dark:text-[#0e0f12] font-label-md text-label-md uppercase tracking-wider font-semibold hover:bg-secondary dark:hover:bg-[#d9d4cb] transition-colors shadow-sm flex items-center justify-center gap-1 whitespace-nowrap">
-                      <span>Tambah</span>
-                      <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    <button type="submit" class="sm:col-span-3 w-full h-10 px-3 rounded-full bg-primary text-on-primary dark:bg-[#f4efe6] dark:text-[#0e0f12] font-label-sm text-xs font-semibold tracking-normal hover:bg-secondary dark:hover:bg-[#d9d4cb] transition-colors shadow-sm flex items-center justify-center gap-1 whitespace-nowrap">
+                      <span>Tambah →</span>
                     </button>
                   </div>
                 </form>
@@ -404,11 +403,11 @@
 
             <!-- Kolom Kanan: Daftar Deadline Terdekat -->
             <div class="lg:col-span-6 flex flex-col gap-space-md" id="urgent-tasks">
-              <div class="flex items-center justify-between px-space-xs">
+              <div class="flex flex-wrap items-center justify-between gap-2 px-space-xs">
                 <div class="flex items-center gap-2">
                   <span class="font-headline-sm text-lg md:text-xl text-primary font-medium">Deadline Terdekat</span>
                 </div>
-                <a href="projects.html" class="font-label-md text-label-md text-secondary hover:text-primary uppercase tracking-wider font-semibold transition-colors">
+                <a href="projects.html" class="font-label-sm text-xs text-secondary hover:text-primary font-medium tracking-normal transition-colors whitespace-nowrap">
                   Semua Tugas →
                 </a>
               </div>
