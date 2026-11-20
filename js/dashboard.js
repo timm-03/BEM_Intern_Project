@@ -109,14 +109,14 @@
     if (urgentCountEl) urgentCountEl.textContent = String(urgentTotal).padStart(2, '0');
     if (urgentBadgeEl) {
       if (overdueCount > 0) {
-        urgentBadgeEl.innerHTML = '<span class="font-bold text-xs">' + overdueCount + '</span><span>TERLAMBAT</span>';
-        urgentBadgeEl.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full whitespace-nowrap shrink-0 text-[10px] font-semibold tracking-wider bg-error text-on-error';
+        urgentBadgeEl.innerHTML = '<span>' + overdueCount + ' TERLAMBAT</span>';
+        urgentBadgeEl.className = 'inline-flex items-center px-2 py-0.5 rounded whitespace-nowrap shrink-0 text-[10px] font-semibold tracking-wider uppercase bg-error text-on-error';
       } else if (urgentCount > 0) {
-        urgentBadgeEl.innerHTML = '<span class="font-bold text-xs">' + urgentCount + '</span><span>MENDESAK</span>';
-        urgentBadgeEl.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full whitespace-nowrap shrink-0 text-[10px] font-semibold tracking-wider bg-secondary text-on-secondary';
+        urgentBadgeEl.innerHTML = '<span>' + urgentCount + ' MENDESAK</span>';
+        urgentBadgeEl.className = 'inline-flex items-center px-2 py-0.5 rounded whitespace-nowrap shrink-0 text-[10px] font-semibold tracking-wider uppercase bg-secondary text-on-secondary';
       } else {
-        urgentBadgeEl.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span><span>TERKENDALI</span>';
-        urgentBadgeEl.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full whitespace-nowrap shrink-0 text-[10px] font-semibold tracking-wider bg-emerald-700 text-white';
+        urgentBadgeEl.innerHTML = '<span>TERKENDALI</span>';
+        urgentBadgeEl.className = 'inline-flex items-center px-2 py-0.5 rounded whitespace-nowrap shrink-0 text-[10px] font-semibold tracking-wider uppercase bg-emerald-700 text-white';
       }
     }
     if (urgentDescEl) {
@@ -221,9 +221,7 @@
       var deadlineInfo = URUI.formatDeadline(task.deadline);
 
       var card = document.createElement('div');
-      var borderClass = deadlineInfo.isOverdue ? 'border-l-4 border-l-error' : (deadlineInfo.daysLeft <= 3 ? 'border-l-4 border-l-secondary' : 'border-l-4 border-l-outline-variant');
-
-      card.className = 'task-card rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_12px_24px_-8px_rgba(54,46,38,0.05)] hover:shadow-md transition-all flex items-start gap-space-sm group ' + borderClass;
+      card.className = 'task-card rounded-lg bg-surface-container-lowest p-space-md border border-outline-variant/20 dark:border-[#2a2c36] shadow-[0_4px_16px_rgba(54,46,38,0.04)] hover:shadow-md transition-all flex items-start gap-space-sm group';
       card.setAttribute('data-task-id', task.id);
 
       var isDone = task.status === 'Done';
@@ -249,13 +247,13 @@
               ${deadlineInfo.text}
             </span>
             ${task.attachmentMeta ? `
-              <span>•</span>
+              <span class="text-outline-variant/60">/</span>
               <span class="flex items-center gap-1 text-secondary">
                 <span class="material-symbols-outlined text-[15px]">attachment</span>
                 ${_escapeHTML(task.attachmentMeta.name)}
               </span>
             ` : ''}
-            <span>•</span>
+            <span class="text-outline-variant/60">/</span>
             <a href="projects.html" class="text-secondary hover:text-primary transition-colors font-medium">Buka Proyek →</a>
           </div>
         </div>

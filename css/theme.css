@@ -213,14 +213,8 @@ html.dark {
 }
 
 /* Indikator aktif navigasi */
-.mobile-nav__item.active::after {
-  content: '';
-  display: block;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  margin-top: 2px;
+.mobile-nav__item.active {
+  font-weight: 600;
 }
 
 /* Navigasi mengambang (floating) */

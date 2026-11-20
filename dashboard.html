@@ -220,10 +220,7 @@
           <!-- Banner Sapaan Pengguna -->
           <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
             <div>
-              <div class="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-surface-container-high/80 dark:bg-[#1f2029] text-secondary dark:text-[#c8a97e] mb-space-xs shadow-sm">
-                <span class="w-1.5 h-1.5 rounded-full bg-secondary dark:bg-[#c8a97e] animate-pulse"></span>
-                <span class="font-label-sm text-[9px] font-medium tracking-[0.12em] uppercase" id="greeting-badge">UR TASK • Studio Workspace</span>
-              </div>
+              <p class="font-label-sm text-xs font-semibold uppercase tracking-wider text-secondary dark:text-[#c8a97e] mb-1" id="greeting-badge">Studio Workspace</p>
               <h1 class="font-headline-md text-2xl md:text-3xl text-primary tracking-tight font-medium leading-tight" id="greeting-name">
                 Halo, Rekan Kerja
               </h1>
@@ -233,10 +230,9 @@
             </div>
 
             <!-- Status Sinkronisasi Lokal -->
-            <div class="flex items-center gap-space-xs px-4 py-2 rounded-full bg-surface-container-lowest/90 dark:bg-[#16171d] shadow-[0_4px_20px_rgba(54,46,38,0.06)] border border-outline-variant/20 dark:border-[#2a2c36] self-start md:self-auto">
+            <div class="flex items-center gap-2 px-3.5 py-1.5 rounded bg-surface-container-lowest/90 dark:bg-[#16171d] shadow-sm border border-outline-variant/20 dark:border-[#2a2c36] self-start md:self-auto text-on-surface">
               <span class="material-symbols-outlined text-secondary dark:text-[#c8a97e] text-[18px]">verified</span>
-              <span class="font-label-md text-label-md text-on-surface tracking-normal font-medium">Penyimpanan Lokal Aktif</span>
-              <span class="inline-flex items-center justify-center w-2 h-2 rounded-full bg-emerald-600 ml-1 animate-pulse"></span>
+              <span class="font-label-md text-xs tracking-normal font-medium">Penyimpanan Lokal Aktif</span>
             </div>
           </div>
 
@@ -246,8 +242,7 @@
             <div class="md:col-span-4 rounded-3xl bg-surface-container-lowest/95 dark:bg-[#16171d] p-space-lg shadow-[0_16px_36px_-10px_rgba(54,46,38,0.06)] border border-outline-variant/15 dark:border-[#2a2c36] flex flex-col justify-between relative overflow-hidden group hover:shadow-[0_20px_40px_-10px_rgba(54,46,38,0.1)] transition-all">
               <div class="flex items-center justify-between">
                 <span class="font-label-md text-label-md uppercase tracking-widest text-on-surface-variant font-semibold">Total Proyek Aktif</span>
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed/50 dark:bg-[#1f2029] text-on-secondary-fixed dark:text-[#c8a97e] font-label-sm text-label-sm">
-                  <span class="w-1.5 h-1.5 rounded-full bg-secondary dark:bg-[#c8a97e]"></span>
+                <span class="inline-flex items-center px-2 py-0.5 rounded bg-secondary-fixed/50 dark:bg-[#1f2029] text-on-secondary-fixed dark:text-[#c8a97e] font-label-sm text-xs font-medium">
                   Berjalan
                 </span>
               </div>
@@ -283,24 +278,21 @@
                   <div id="bar-todo" class="h-full bg-surface-dim rounded-full transition-all duration-500" style="width: 0%;" title="To-Do"></div>
                 </div>
                 <div class="grid grid-cols-3 gap-2 pt-1 text-center">
-                  <div class="p-2.5 rounded-2xl bg-surface-container-low/60 dark:bg-[#1f2029] flex flex-col items-center">
-                    <div class="flex items-center gap-1.5 mb-1">
-                      <span class="w-2 h-2 rounded-full bg-surface-dim"></span>
-                      <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">To-Do</span>
+                  <div class="p-2.5 rounded-lg bg-surface-container-low/60 dark:bg-[#1f2029] flex flex-col items-center border border-outline-variant/10 dark:border-[#2a2c36]">
+                    <div class="mb-1">
+                      <span class="font-label-sm text-xs text-on-surface-variant uppercase font-medium">To-Do</span>
                     </div>
                     <span id="stat-todo-count" class="font-headline-md text-2xl md:text-3xl text-primary font-medium">0</span>
                   </div>
-                  <div class="p-2.5 rounded-2xl bg-secondary-fixed/30 dark:bg-[#1f2029] flex flex-col items-center">
-                    <div class="flex items-center gap-1.5 mb-1">
-                      <span class="w-2 h-2 rounded-full bg-secondary dark:bg-[#c8a97e]"></span>
-                      <span class="font-label-sm text-label-sm text-secondary dark:text-[#c8a97e] font-semibold uppercase">Progres</span>
+                  <div class="p-2.5 rounded-lg bg-secondary-fixed/30 dark:bg-[#1f2029] flex flex-col items-center border border-outline-variant/10 dark:border-[#2a2c36]">
+                    <div class="mb-1">
+                      <span class="font-label-sm text-xs text-secondary dark:text-[#c8a97e] font-semibold uppercase">Progres</span>
                     </div>
                     <span id="stat-progress-count" class="font-headline-md text-2xl md:text-3xl text-primary font-medium">0</span>
                   </div>
-                  <div class="p-2.5 rounded-2xl bg-surface-container-high/60 dark:bg-[#1f2029] flex flex-col items-center">
-                    <div class="flex items-center gap-1.5 mb-1">
-                      <span class="w-2 h-2 rounded-full bg-primary"></span>
-                      <span class="font-label-sm text-label-sm text-primary font-semibold uppercase">Selesai</span>
+                  <div class="p-2.5 rounded-lg bg-surface-container-high/60 dark:bg-[#1f2029] flex flex-col items-center border border-outline-variant/10 dark:border-[#2a2c36]">
+                    <div class="mb-1">
+                      <span class="font-label-sm text-xs text-primary font-semibold uppercase">Selesai</span>
                     </div>
                     <span id="stat-done-count" class="font-headline-md text-2xl md:text-3xl text-primary font-medium">0</span>
                   </div>
@@ -317,10 +309,7 @@
               <div class="absolute -right-10 -bottom-10 w-36 h-36 rounded-full bg-surface-tint/20 blur-2xl pointer-events-none"></div>
               <div class="flex items-center justify-between gap-2 relative z-10">
                 <span class="text-[10px] tracking-[0.12em] uppercase font-semibold text-on-primary-container dark:text-[#d9d4cb] whitespace-nowrap">PRIORITAS DEADLINE</span>
-                <span id="stat-urgent-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full whitespace-nowrap shrink-0 text-[10px] font-semibold tracking-wider bg-emerald-700 text-white">
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                  <span>TERKENDALI</span>
-                </span>
+                <span id="stat-urgent-badge" class="inline-flex items-center px-2 py-0.5 rounded whitespace-nowrap shrink-0 text-[10px] font-semibold tracking-wider bg-emerald-700 text-white uppercase">TERKENDALI</span>
               </div>
               <div class="my-space-md relative z-10">
                 <div class="flex items-center justify-between">
@@ -335,7 +324,6 @@
                 <p id="stat-urgent-desc" class="font-body-sm text-xs text-on-primary-container dark:text-[#9e9a92] mt-2">Deadline terdekat atau sudah lewat batas.</p>
               </div>
               <div class="pt-space-xs relative z-10 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-secondary dark:bg-[#c8a97e] animate-pulse"></span>
                 <span id="stat-urgent-status" class="font-label-sm text-[11px] text-on-primary-container dark:text-[#d9d4cb]">Alur kerja optimal</span>
               </div>
             </div>
@@ -348,7 +336,7 @@
               <div class="flex items-center justify-between px-space-xs">
                 <div class="flex items-center gap-space-xs">
                   <span class="font-headline-sm text-lg md:text-xl text-primary font-medium">Sorotan Proyek Terkini</span>
-                  <span id="featured-project-badge" class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-medium">Aktif</span>
+                  <span id="featured-project-badge" class="font-label-sm text-xs px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-medium">Aktif</span>
                 </div>
                 <a href="projects.html" class="font-label-md text-label-md text-secondary hover:text-primary uppercase tracking-wider font-semibold transition-colors">
                   Kelola Semua →
@@ -419,7 +407,6 @@
               <div class="flex items-center justify-between px-space-xs">
                 <div class="flex items-center gap-2">
                   <span class="font-headline-sm text-lg md:text-xl text-primary font-medium">Deadline Terdekat</span>
-                  <span class="w-2 h-2 rounded-full bg-error"></span>
                 </div>
                 <a href="projects.html" class="font-label-md text-label-md text-secondary hover:text-primary uppercase tracking-wider font-semibold transition-colors">
                   Semua Tugas →

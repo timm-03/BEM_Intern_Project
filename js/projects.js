@@ -266,7 +266,7 @@
         </span>
 
         ${task.attachmentMeta ? `
-          <button type="button" onclick="downloadAttachment('${task.attachmentMeta.key}', '${_escapeHTML(task.attachmentMeta.name)}')" class="flex items-center gap-1 text-secondary hover:text-primary transition-colors font-medium px-2 py-0.5 rounded-full bg-secondary-fixed/30" title="Unduh Berkas Lampiran">
+          <button type="button" onclick="downloadAttachment('${task.attachmentMeta.key}', '${_escapeHTML(task.attachmentMeta.name)}')" class="flex items-center gap-1 text-secondary hover:text-primary transition-colors font-medium px-2 py-0.5 rounded bg-surface-container text-xs" title="Unduh Berkas Lampiran">
             <span class="material-symbols-outlined text-[13px]">attachment</span>
             <span class="truncate max-w-[90px]">${_escapeHTML(task.attachmentMeta.name)}</span>
           </button>
@@ -357,7 +357,7 @@
             <span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-semibold">
               ${String(idx + 1).padStart(2, '0')} / PROYEK
             </span>
-            <span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+            <span class="text-outline-variant/60 text-xs">/</span>
             <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">${_escapeHTML(project.status || 'Aktif')}</span>
           </div>
           <div class="flex items-center gap-1" onclick="event.stopPropagation()">
@@ -477,7 +477,7 @@
             <button class="w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${isDone ? 'bg-primary text-on-primary border-primary' : 'border-outline-variant text-transparent hover:border-primary hover:text-primary'}" onclick="toggleTaskCompletion('${task.id}')" title="Tandai Selesai" type="button">
               <span class="material-symbols-outlined text-[14px]">check</span>
             </button>
-            <span class="font-label-sm text-label-sm uppercase tracking-widest px-2.5 py-0.5 rounded-full ${isDone ? 'bg-surface-container-highest text-on-surface-variant' : 'bg-secondary-fixed text-on-secondary-fixed'} font-semibold">
+            <span class="font-label-sm text-label-sm uppercase tracking-widest px-2 py-0.5 rounded ${isDone ? 'bg-surface-container-highest text-on-surface-variant' : 'bg-secondary-fixed text-on-secondary-fixed'} font-semibold">
               ${_escapeHTML(task.status)}
             </span>
             <span class="font-label-sm text-label-sm ${deadlineInfo.isOverdue ? 'text-error font-semibold' : 'text-on-surface-variant'} flex items-center gap-0.5">
@@ -510,7 +510,7 @@
         <div class="pl-8 flex flex-wrap items-center justify-between gap-space-sm pt-space-xs border-t border-surface-container/60">
           <!-- Attachment Capsule -->
           ${task.attachmentMeta ? `
-            <button type="button" onclick="downloadAttachment('${task.attachmentMeta.key}', '${_escapeHTML(task.attachmentMeta.name)}')" class="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container hover:bg-surface-container-high transition-colors text-on-surface" title="Klik untuk mengunduh lampiran">
+            <button type="button" onclick="downloadAttachment('${task.attachmentMeta.key}', '${_escapeHTML(task.attachmentMeta.name)}')" class="flex items-center gap-space-xs px-2.5 py-1 rounded bg-surface-container hover:bg-surface-container-high transition-colors text-on-surface" title="Klik untuk mengunduh lampiran">
               <span class="material-symbols-outlined text-[16px] text-secondary">attachment</span>
               <span class="font-label-sm text-label-sm font-medium tracking-wide truncate max-w-[150px]">${_escapeHTML(task.attachmentMeta.name)}</span>
               <span class="font-label-sm text-[10px] text-on-surface-variant">${_formatFileSize(task.attachmentMeta.size)}</span>

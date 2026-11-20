@@ -113,10 +113,10 @@
       <div class="flex flex-col gap-space-sm">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-space-xs">
-            <span class="px-space-sm py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm uppercase tracking-widest font-semibold">
+            <span class="px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-label-sm text-xs uppercase tracking-widest font-semibold">
               DIARSIPKAN
             </span>
-            <span class="px-space-sm py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+            <span class="px-2 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-label-sm text-xs uppercase tracking-wider">
               ${_escapeHTML(project.status || 'Selesai')}
             </span>
           </div>
@@ -146,7 +146,6 @@
           <div class="flex flex-col">
             <span class="font-label-sm text-[10px] uppercase tracking-widest text-on-surface-variant">Penyelesaian Akhir</span>
             <span class="font-label-lg text-label-lg text-primary font-semibold flex items-center gap-1">
-              <span class="w-2 h-2 rounded-full ${pct === 100 ? 'bg-emerald-600' : 'bg-secondary'}"></span>
               ${pct}% Rampung
             </span>
           </div>
@@ -201,7 +200,7 @@
             </span>
             <span class="truncate ${isDone ? 'line-through text-on-surface-variant' : 'text-on-surface'}">${_escapeHTML(t.title)}</span>
           </div>
-          <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider ${isDone ? 'bg-surface-container-highest text-on-surface-variant' : 'bg-secondary-fixed text-on-secondary-fixed'} shrink-0 ml-2">
+          <span class="px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider ${isDone ? 'bg-surface-container-highest text-on-surface-variant' : 'bg-secondary-fixed text-on-secondary-fixed'} shrink-0 ml-2">
             ${_escapeHTML(t.status)}
           </span>
         </div>

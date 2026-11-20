@@ -225,10 +225,7 @@
           <!-- Header Halaman Proyek -->
           <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
             <div>
-              <div class="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-surface-container-high/80 dark:bg-[#1f2029] text-secondary dark:text-[#c8a97e] mb-space-xs shadow-sm">
-                <span class="w-1.5 h-1.5 rounded-full bg-secondary dark:bg-[#c8a97e] animate-pulse"></span>
-                <span class="font-label-sm text-[9px] font-medium tracking-[0.12em] uppercase">UR TASK • Ruang Kerja Eksekusi</span>
-              </div>
+              <p class="font-label-sm text-xs font-semibold uppercase tracking-wider text-secondary dark:text-[#c8a97e] mb-1">Ruang Kerja Proyek</p>
               <h1 class="font-headline-md text-2xl md:text-3xl text-primary tracking-tight font-medium leading-tight">
                 Manajemen Proyek & Tugas
               </h1>
@@ -238,7 +235,7 @@
             </div>
 
             <!-- Ringkasan Statistik Singkat -->
-            <div class="flex items-center gap-space-xs px-4 py-2 rounded-full bg-surface-container-lowest/90 dark:bg-[#16171d] shadow-[0_4px_20px_rgba(54,46,38,0.06)] border border-outline-variant/20 dark:border-[#2a2c36] self-start md:self-auto">
+            <div class="flex items-center gap-space-xs px-3.5 py-1.5 rounded bg-surface-container-lowest/90 dark:bg-[#16171d] shadow-sm border border-outline-variant/20 dark:border-[#2a2c36] self-start md:self-auto">
               <div class="flex items-center gap-1.5 pr-3 border-r border-outline-variant/20 dark:border-[#2a2c36]">
                 <span class="material-symbols-outlined text-secondary dark:text-[#c8a97e] text-[18px]">domain</span>
                 <span id="header-stat-projects" class="font-headline-sm text-sm md:text-base font-semibold text-primary leading-none">0</span>
@@ -328,10 +325,9 @@
             <div class="kanban-col bg-surface-container-low dark:bg-[#16171d] rounded-3xl p-space-md border border-outline-variant/15 dark:border-[#2a2c36] flex flex-col gap-space-sm min-h-[280px] lg:min-h-[500px] transition-all" data-status="To-do">
               <div class="flex items-center justify-between pb-2 border-b border-surface-container dark:border-[#2a2c36]">
                 <div class="flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-surface-dim"></span>
                   <h3 class="font-headline-sm text-base md:text-lg text-primary font-medium tracking-tight">To-do</h3>
                 </div>
-                <span id="kanban-count-todo" class="px-2.5 py-0.5 rounded-full bg-surface-container-high dark:bg-[#282932] text-on-surface-variant dark:text-[#c8a97e] font-label-sm text-xs font-semibold">0</span>
+                <span id="kanban-count-todo" class="px-2 py-0.5 rounded bg-surface-container-high dark:bg-[#282932] text-on-surface-variant dark:text-[#c8a97e] font-label-sm text-xs font-semibold">0</span>
               </div>
               <!-- Area Kartu Tugas -->
               <div class="kanban-cards-zone flex flex-col gap-space-sm min-h-[180px] lg:min-h-[400px]" id="kanban-zone-todo">
@@ -347,10 +343,9 @@
             <div class="kanban-col bg-surface-container-low dark:bg-[#16171d] rounded-3xl p-space-md border border-outline-variant/15 dark:border-[#2a2c36] flex flex-col gap-space-sm min-h-[280px] lg:min-h-[500px] transition-all" data-status="In-Progress">
               <div class="flex items-center justify-between pb-2 border-b border-surface-container dark:border-[#2a2c36]">
                 <div class="flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-secondary dark:bg-[#c8a97e]"></span>
                   <h3 class="font-headline-sm text-base md:text-lg text-primary font-medium tracking-tight">In-Progress</h3>
                 </div>
-                <span id="kanban-count-progress" class="px-2.5 py-0.5 rounded-full bg-secondary-fixed/50 dark:bg-[#282932] text-on-secondary-fixed dark:text-[#c8a97e] font-label-sm text-xs font-semibold">0</span>
+                <span id="kanban-count-progress" class="px-2 py-0.5 rounded bg-secondary-fixed/50 dark:bg-[#282932] text-on-secondary-fixed dark:text-[#c8a97e] font-label-sm text-xs font-semibold">0</span>
               </div>
               <!-- Area Kartu Tugas -->
               <div class="kanban-cards-zone flex flex-col gap-space-sm min-h-[180px] lg:min-h-[400px]" id="kanban-zone-progress">
@@ -366,10 +361,9 @@
             <div class="kanban-col bg-surface-container-low dark:bg-[#16171d] rounded-3xl p-space-md border border-outline-variant/15 dark:border-[#2a2c36] flex flex-col gap-space-sm min-h-[280px] lg:min-h-[500px] transition-all" data-status="Done">
               <div class="flex items-center justify-between pb-2 border-b border-surface-container dark:border-[#2a2c36]">
                 <div class="flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-primary dark:bg-[#f4efe6]"></span>
                   <h3 class="font-headline-sm text-base md:text-lg text-primary font-medium tracking-tight">Done / Selesai</h3>
                 </div>
-                <span id="kanban-count-done" class="px-2.5 py-0.5 rounded-full bg-surface-container-highest dark:bg-[#282932] text-on-surface-variant dark:text-[#c8a97e] font-label-sm text-xs font-semibold">0</span>
+                <span id="kanban-count-done" class="px-2 py-0.5 rounded bg-surface-container-highest dark:bg-[#282932] text-on-surface-variant dark:text-[#c8a97e] font-label-sm text-xs font-semibold">0</span>
               </div>
               <!-- Area Kartu Tugas -->
               <div class="kanban-cards-zone flex flex-col gap-space-sm min-h-[180px] lg:min-h-[400px]" id="kanban-zone-done">
@@ -391,7 +385,7 @@
             <div class="flex items-center justify-between px-space-xs">
               <div class="flex items-center gap-space-xs">
                 <h2 class="font-headline-sm text-lg md:text-xl text-primary font-medium tracking-tight">Daftar Proyek Aktif</h2>
-                <span id="project-list-count-badge" class="font-label-sm text-xs text-secondary dark:text-[#c8a97e] bg-secondary-fixed/50 dark:bg-[#1f2029] px-2.5 py-0.5 rounded-full font-semibold">0 Aktif</span>
+                <span id="project-list-count-badge" class="font-label-sm text-xs text-secondary dark:text-[#c8a97e] bg-secondary-fixed/50 dark:bg-[#1f2029] px-2 py-0.5 rounded font-semibold">0 Aktif</span>
               </div>
               <span class="font-label-sm text-xs text-on-surface-variant tracking-wider uppercase font-semibold">Pilih untuk detail</span>
             </div>
@@ -408,7 +402,6 @@
             <div class="p-space-lg rounded-3xl bg-surface-container-low dark:bg-[#16171d] shadow-[0_16px_36px_-10px_rgba(54,46,38,0.06)] border border-outline-variant/15 dark:border-[#2a2c36] flex flex-col sm:flex-row sm:items-center justify-between gap-space-md">
               <div>
                 <div class="flex items-center gap-space-xs mb-1">
-                  <span class="w-2 h-2 rounded-full bg-secondary dark:bg-[#c8a97e]"></span>
                   <span class="font-label-sm text-xs tracking-widest text-secondary dark:text-[#c8a97e] uppercase font-semibold">Ruang Eksekusi Terpilih</span>
                 </div>
                 <h2 id="active-project-title" class="font-headline-md text-lg md:text-xl text-primary tracking-tight font-medium">
@@ -622,7 +615,7 @@
           </label>
           
           <!-- Lampiran File Yang Ada -->
-          <div id="existing-attachment-container" class="hidden items-center justify-between p-2.5 mb-2 rounded-2xl bg-secondary-fixed/40 border border-secondary-fixed">
+          <div id="existing-attachment-container" class="hidden items-center justify-between p-2.5 mb-2 rounded bg-surface-container border border-outline-variant/30">
             <div class="flex items-center gap-2 truncate">
               <span class="material-symbols-outlined text-[18px] text-secondary">attachment</span>
               <span id="existing-attachment-name" class="font-body-sm text-on-secondary-fixed truncate font-medium">berkas.pdf</span>
