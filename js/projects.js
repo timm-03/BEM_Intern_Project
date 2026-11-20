@@ -1,5 +1,5 @@
 /**
- * UR TASK — js/projects.js
+ * UR TASK - js/projects.js
  * Manajemen proyek dan tugas: CRUD, HTML5 Drag & Drop Kanban, lampiran file IndexedDB, serta filter pencarian.
  */
 

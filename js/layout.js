@@ -1,5 +1,5 @@
 /**
- * UR TASK — js/layout.js
+ * UR TASK - js/layout.js
  * Sinkronisasi komponen navigasi, avatar inisial pengguna, dan tema antar halaman.
  */
 (function () {

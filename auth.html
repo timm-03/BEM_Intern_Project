@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Masuk ke Akun — UR TASK</title>
+  <title>Masuk ke Akun - UR TASK</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
   <!-- Inisialisasi tema sebelum render -->
@@ -287,11 +287,25 @@
       color: #0e0f12;
     }
 
-    /* Info privasi */
-    .privacy-info {
-      font-size: 12px;
-      color: var(--color-on-surface-variant);
+    /* Privacy pill */
+    .privacy-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--color-secondary-container, #f2dcca);
+      border-radius: 9999px;
+      padding: 5px 12px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-secondary, #6c5b4d);
     }
+    [data-theme="dark"] .privacy-pill, html.dark .privacy-pill {
+      background: #1f2029;
+      color: #c8a97e;
+    }
+    .privacy-pill .material-symbols-outlined { font-size: 13px; }
 
     /* Toast */
     #toast {
@@ -383,10 +397,12 @@
   <main class="relative z-10 flex-1 flex flex-col items-center justify-center px-4 pt-28 pb-12">
 
     <!-- Informasi Privasi -->
-    <p class="text-xs text-on-surface-variant dark:text-[#9e9a92] flex items-center justify-center gap-1.5 mb-6">
-      <span class="material-symbols-outlined text-[15px]">lock</span>
-      <span>Data tersimpan lokal, tanpa pihak ketiga</span>
-    </p>
+    <div class="mb-6">
+      <span class="privacy-pill">
+        <span class="material-symbols-outlined">lock</span>
+        Data tersimpan lokal · tanpa pihak ketiga
+      </span>
+    </div>
 
     <!-- Kartu Autentikasi -->
     <div class="w-full max-w-[440px] rounded-3xl bg-surface-container-lowest dark:bg-[#16171d] border border-outline-variant/20 dark:border-[#2a2c36] shadow-[0_16px_36px_-10px_rgba(54,46,38,0.08)] p-6 sm:p-8 relative z-10">

@@ -1,5 +1,5 @@
 /**
- * UR TASK — js/dashboard.js
+ * UR TASK - js/dashboard.js
  * Logika halaman dashboard: statistik progres tugas, ringkasan deadline, dan tambah tugas cepat.
  */
 (function () {

@@ -1,5 +1,5 @@
 /**
- * UR TASK — theme.js
+ * UR TASK - theme.js
  * Pengatur tema tampilan (Mode Terang & Mode Gelap) dan sinkronisasi tombol toggle.
  */
 (function () {

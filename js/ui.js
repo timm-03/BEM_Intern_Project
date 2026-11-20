@@ -1,5 +1,5 @@
 /**
- * UR TASK — ui.js
+ * UR TASK - ui.js
  * Komponen antarmuka pengguna: toast notifikasi, dialog konfirmasi, state kosong, badge status, dan format tanggal.
  */
 (function () {
@@ -323,7 +323,7 @@
     var style = _BADGE_STYLES[status] || {
       bg:    'var(--color-surface-container)',
       color: 'var(--color-on-surface-variant)',
-      label: status || '—',
+      label: status || '-',
     };
     return '<span style="' + [
       'display:inline-flex',

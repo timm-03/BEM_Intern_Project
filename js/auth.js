@@ -1,5 +1,5 @@
 /**
- * UR TASK — auth.js
+ * UR TASK - auth.js
  * Modul autentikasi: proteksi sesi, login, registrasi, dan logout.
  */
 (function () {
